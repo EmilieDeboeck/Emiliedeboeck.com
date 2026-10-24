@@ -1,0 +1,192 @@
+/* ==========================================================
+   .brol : la DA de la charte graphique 2026
+   Crème pour respirer, rouge brique pour la signature, vert forêt pour le contraste.
+   Titres en grotesque serrée (Archivo à la place de Neue Montreal), texte en DM Sans.
+   Formes organiques fixes, coupées par le bord, sans contour ni ombre. Fil rouge, repères ✳ →.
+   Mise en page éditoriale : filets fins, angles droits, pas d'ombre, pas de rotation.
+   ========================================================== */
+
+.pg-brol {
+  --br-red: #C33723;
+  --br-green: #0E3B2E;
+  --br-cream: #F5F1EC;
+  --br-pink: #FADAD7;
+  --br-blue: #CDE7FF;
+  --br-black: #111111;
+  --br-line: rgb(17 17 17 / 0.14);
+
+  --pg-bg: var(--br-red);
+  --pg-fg: var(--br-cream);
+  --pg-accent: var(--br-red);
+  --f-display: var(--f-brol);
+  --f-body: "DM Sans", system-ui, sans-serif;
+
+  --curtain: var(--br-red);
+  --progress-color: var(--br-red);
+  --reveal-rot: 0deg;
+  --word-rot: 0deg;
+  --word-ease: var(--ease-out);
+  --slide-rot: 0;
+
+  background: var(--br-cream);
+  color: var(--br-black);
+}
+
+.pg-brol :focus-visible { outline-color: var(--br-red); }
+.pg-brol .tinted :focus-visible { outline-color: var(--br-cream); }
+.pg-brol .skip-link { background: var(--br-red); color: var(--br-cream); }
+
+/* ---------- En-tête et pied de page : une barre fine, comme l'en-tête des pages de la charte ---------- */
+
+.pg-brol .site-header {
+  top: 0;
+  width: 100%;
+  margin: 0;
+  padding-inline: max(var(--gutter), (100% - var(--max)) / 2);
+  border-radius: 0;
+  background: rgb(245 241 236 / 0.92);
+  border-bottom: 1px solid var(--br-line);
+  box-shadow: none;
+}
+.pg-brol .logo { padding-top: 0; font-family: var(--f-brol); font-weight: 700; font-size: 1.45rem; letter-spacing: -0.04em; }
+.pg-brol .logo span { color: var(--br-red); }
+.pg-brol .menu a { font-weight: 500; }
+.pg-brol .menu a:hover { background: none; color: var(--br-red); }
+.pg-brol .lang-switch { background: none; border: 1px solid var(--br-line); }
+.pg-brol .lang-switch button { font-family: var(--f-body); font-weight: 600; }
+.pg-brol .lang-switch button[aria-pressed="true"] { background: var(--br-black); color: var(--br-cream); }
+.pg-brol .menu-toggle { background: var(--br-red); color: var(--br-cream); font-family: var(--f-body); }
+
+@media (max-width: 760px) {
+  .pg-brol .site-header { background: var(--br-cream); }
+  .pg-brol .menu { background: var(--br-cream); border-left: 1px solid var(--br-line); border-radius: 0; box-shadow: none; }
+  .pg-brol .menu a { font-family: var(--f-brol); font-weight: 700; letter-spacing: -0.03em; color: var(--br-black); }
+  .pg-brol .menu a:hover { background: none; color: var(--br-red); }
+}
+
+.pg-brol .site-footer { background: var(--br-cream); color: var(--br-black); border-top: 1px solid var(--br-line); }
+
+/* ---------- Titres ---------- */
+
+.pg-brol h2,
+.pg-brol h3 { font-weight: 700; letter-spacing: -0.035em; line-height: 1.02; }
+
+/* Repère de rubrique en rouge au-dessus de chaque titre, comme « 1.1.5 » dans la charte */
+.pg-brol main { counter-reset: br-part; }
+.pg-brol .pj-section { counter-increment: br-part; }
+.pg-brol .pj-section h2 { max-width: 20ch; font-size: clamp(2.2rem, 4.8vw, 4rem); }
+.pg-brol .pj-section h2::before {
+  content: "1." counter(br-part);
+  display: block;
+  margin-bottom: 1rem;
+  font-family: var(--f-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--br-red);
+}
+.pg-brol .pj-section.tinted h2::before { color: inherit; opacity: 0.75; }
+.pg-brol .pj-section h3 { margin: var(--space-5) 0 var(--space-2); font-size: clamp(1.5rem, 2.6vw, 2rem); }
+
+.pg-brol .pj-section.forest { background: var(--br-green); }
+
+/* ---------- En-tête du projet : version principale, rouge brique sur crème ---------- */
+
+.pg-brol .pj-hero {
+  margin-top: calc(-1 * var(--header-h));
+  padding: calc(var(--header-h) + var(--space-5)) 0 clamp(140px, 13vw, 200px); /* du blanc en bas, pour la forme ronde */
+  background: var(--br-cream);
+  color: var(--br-black);
+}
+.pg-brol .pj-back { padding-bottom: 0.15rem; border-bottom: 1px solid currentColor; font-weight: 500; }
+.pg-brol .pj-back:hover { color: var(--br-red); }
+.pg-brol .pj-title { width: min(100%, 640px); line-height: 1; }
+
+.pg-brol .pj-meta { gap: var(--space-3); margin-top: var(--space-4); padding-top: var(--space-2); border-top: 1px solid var(--br-black); }
+.pg-brol .pj-meta dt { margin-bottom: 0.25rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; color: var(--br-red); }
+.pg-brol .pj-meta dd { font-weight: 500; font-size: 1rem; }
+
+/* Formes organiques : fixes (pas de morphing), irrégulières, coupées par le bord */
+.br-shape {
+  position: absolute;
+  z-index: -1;
+  aspect-ratio: 1;
+  background: var(--c);
+  border-radius: 46% 54% 42% 58% / 52% 40% 60% 48%;
+  pointer-events: none;
+}
+.br-shape.b { border-radius: 58% 42% 55% 45% / 45% 58% 42% 55%; }
+.br-shape.c { border-radius: 40% 60% 50% 50% / 60% 45% 55% 40%; }
+
+/* Fil rouge : un trait fin qui se dessine à l'arrivée */
+/* Il longe le bas, remonte dans la marge de droite et boucle à droite du logo, sans traverser le texte.
+   Sous 1000 px la mise en page change trop pour qu'il garde sa place : on le retire. */
+.br-thread { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+@media (max-width: 1000px) { .br-thread { display: none; } }
+.br-thread path {
+  fill: none;
+  stroke: var(--br-red);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 3200;
+  stroke-dashoffset: 3200;
+  animation: br-draw 2.6s 0.3s var(--ease-in-out) forwards;
+}
+@keyframes br-draw { to { stroke-dashoffset: 0; } }
+
+/* ---------- Images : angles droits, pas d'ombre ---------- */
+
+.pg-brol .shot { border-radius: 0; background: var(--br-cream); }
+
+/* Le logo sur les bons fonds */
+.br-fonds { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-2); margin-top: var(--space-4); }
+.br-fonds .shot { display: grid; place-items: center; aspect-ratio: 4 / 3; padding: 12%; background: var(--bg); box-shadow: inset 0 0 0 1px var(--br-line); }
+.br-fonds .is-cream img { filter: brightness(0) invert(0.95) sepia(0.12); }
+@media (max-width: 760px) { .br-fonds { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Légendes : repère « → » de la charte */
+.pg-brol figcaption { font-weight: 500; }
+.pg-brol figcaption::before { content: "→ "; color: var(--br-red); }
+.pg-brol .tinted figcaption::before { color: inherit; }
+
+/* ---------- Ton ---------- */
+
+.pg-brol .traits { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: var(--space-3); }
+.pg-brol .traits li { padding: 0.4rem 1rem; border: 1px solid var(--br-black); border-radius: var(--radius-pill); font-weight: 500; }
+.pg-brol .traits li::before { content: "✳"; margin-right: 0.45em; color: var(--br-red); }
+
+/* Les accroches, dans le style des affiches : grotesque serrée, capitales */
+.pg-brol .brol-voice { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-2); margin-top: var(--space-4); }
+.pg-brol .brol-voice li {
+  display: flex;
+  align-items: end;
+  min-height: 220px;
+  padding: var(--space-3);
+  font-family: var(--f-brol);
+  font-stretch: 75%;
+  font-weight: 800;
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.pg-brol .brol-voice li:nth-child(1) { background: var(--br-red); color: var(--br-cream); }
+.pg-brol .brol-voice li:nth-child(2) { background: var(--br-green); color: var(--br-cream); }
+.pg-brol .brol-voice li:nth-child(3) { background: var(--br-pink); color: var(--br-black); }
+.pg-brol .brol-voice li:nth-child(4) { background: #FFFFFF; color: var(--br-red); }
+
+/* ---------- Palette : des pastilles rondes, le nom et le code en dessous ---------- */
+
+.pg-brol .swatches { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: var(--space-3); margin-top: var(--space-3); }
+.pg-brol .swatches li { display: block; min-height: 0; padding: 0; font-weight: 600; }
+.pg-brol .swatches li::before {
+  content: "";
+  display: block;
+  aspect-ratio: 1;
+  margin-bottom: 0.8rem;
+  background: var(--c);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px var(--br-line);
+}
+.pg-brol .swatches code { display: block; font-family: var(--f-body); color: rgb(17 17 17 / 0.65); }

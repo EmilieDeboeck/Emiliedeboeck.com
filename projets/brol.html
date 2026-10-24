@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>.brol — Emilie Deboeck</title>
+  <meta name="description" content="">
+  <meta property="og:image" content="../assets/img/brol/affiche1-1600.jpg">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- DM Sans : la typo de texte de la charte. Archivo remplace Neue Montreal (titres), qui n'est pas disponible en webfont. Outfit : le bloc « projet suivant » (aline). -->
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=DM+Sans:opsz,wght@9..40,400..700&family=Outfit:wght@800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/brol.css">
+</head>
+<body class="pg-brol" data-page="brol" data-root="../">
+
+<main id="main">
+
+  <!-- ========== EN-TÊTE DU PROJET ========== -->
+  <section class="pj-hero" aria-labelledby="pj-title">
+    <!-- Formes organiques de la charte : 1 à 3, coupées par le bord, jamais sur le logo -->
+    <div class="br-shape" style="--c: var(--br-pink); right: -9%; top: -14%; width: clamp(220px, 34vw, 520px);" aria-hidden="true"></div>
+    <div class="br-shape b" style="--c: var(--br-red); right: 16%; bottom: clamp(16px, 2vw, 28px); width: clamp(90px, 9vw, 140px);" aria-hidden="true"></div>
+    <div class="br-shape c" style="--c: var(--br-green); right: -4%; top: 52%; width: clamp(70px, 8vw, 120px);" aria-hidden="true"></div>
+
+    <!-- Fil rouge : il relie, il guide -->
+    <svg class="br-thread" viewBox="0 0 1440 820" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M-20 770 C 260 800 620 690 900 730 S 1250 790 1330 720 C 1400 660 1432 600 1420 520 C 1408 450 1260 450 1150 455 C 1040 460 980 380 1040 310 C 1100 250 1180 320 1130 380 C 1080 440 1000 300 1100 210 S 1350 120 1460 90" />
+    </svg>
+
+    <div class="wrap">
+      <a class="pj-back" href="../index.html#projets" data-i18n="ui.back"></a>
+      <h1 class="pj-title" id="pj-title">
+        <img src="../assets/img/brol/logo.svg" width="3780" height="1782" alt="" data-i18n-attr="alt:pages.brol.title">
+      </h1>
+
+      <dl class="pj-meta">
+        <div><dt data-i18n="pages.labels.type"></dt><dd data-i18n="pages.brol.type"></dd></div>
+        <div><dt data-i18n="pages.labels.frame"></dt><dd data-i18n="pages.brol.frame"></dd></div>
+        <div><dt data-i18n="pages.labels.year"></dt><dd data-i18n="pages.brol.year"></dd></div>
+        <div><dt data-i18n="pages.labels.role"></dt><dd data-i18n="pages.brol.role"></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ========== 1. LE LOGO ========== -->
+  <section class="pj-section" aria-labelledby="logo-title">
+    <div class="wrap">
+      <h2 id="logo-title" class="reveal" data-i18n="pages.brol.logoTitle"></h2>
+      <p data-words data-i18n="pages.brol.logoText"></p>
+
+      <!-- Le logo sur les bons fonds, comme dans la charte -->
+      <div class="br-fonds">
+        <figure class="shot reveal" style="--bg: #FFFFFF;">
+          <img src="../assets/img/brol/logo.svg" width="3780" height="1782" alt="" data-i18n-attr="alt:pages.brol.alt.logoBase">
+        </figure>
+        <figure class="shot reveal" style="--bg: var(--br-red); --reveal-delay: 0.08s;">
+          <img src="../assets/img/brol/logo-cream.svg" width="3780" height="1782" alt="">
+        </figure>
+        <figure class="shot reveal is-cream" style="--bg: var(--br-green); --reveal-delay: 0.16s;">
+          <img src="../assets/img/brol/symbole.png" width="667" height="667" alt="" data-i18n-attr="alt:pages.brol.alt.symbole">
+        </figure>
+        <figure class="shot reveal" style="--bg: var(--br-pink); --reveal-delay: 0.24s;">
+          <img src="../assets/img/brol/symbole.png" width="667" height="667" alt="">
+        </figure>
+      </div>
+      <p data-i18n="pages.brol.symbolText" style="margin-top: var(--space-3);"></p>
+    </div>
+  </section>
+
+  <!-- ========== 2. LE CONCEPT ========== -->
+  <section class="pj-section tinted" aria-labelledby="concept-title">
+    <div class="br-shape" style="--c: var(--br-green); left: -7%; bottom: -18%; width: clamp(140px, 18vw, 260px);" aria-hidden="true"></div>
+    <div class="wrap pj-split">
+      <div>
+        <h2 id="concept-title" class="reveal" data-i18n="pages.brol.conceptTitle"></h2>
+        <p data-words data-i18n="pages.brol.conceptText"></p>
+      </div>
+      <figure class="shot reveal">
+        <img src="../assets/img/brol/charte-apercu-800.jpg" srcset="../assets/img/brol/charte-apercu-800.jpg 800w, ../assets/img/brol/charte-apercu-1600.jpg 1600w" sizes="(min-width: 860px) 45vw, 90vw" width="800" height="565" loading="lazy" alt="" data-i18n-attr="alt:pages.brol.alt.apercu">
+      </figure>
+    </div>
+  </section>
+
+  <!-- ========== 3. LE TON ========== -->
+  <section class="pj-section" aria-labelledby="voice-title">
+    <div class="wrap">
+      <h2 id="voice-title" class="reveal" data-i18n="pages.brol.voiceTitle"></h2>
+      <ul class="traits" data-slide-in data-render="list" data-src="pages.brol.voiceTraits"></ul>
+      <ul class="brol-voice" data-slide-in lang="fr" data-render="list" data-src="pages.brol.voice"></ul>
+    </div>
+  </section>
+
+  <!-- ========== 4. LES AFFICHES ========== -->
+  <section class="pj-section tinted forest" aria-labelledby="posters-title">
+    <div class="wrap">
+      <h2 id="posters-title" class="reveal" data-i18n="pages.brol.postersTitle"></h2>
+      <p data-i18n="pages.brol.postersText"></p>
+
+      <div class="posters" style="margin-top: var(--space-4); align-items: start;">
+        <figure class="shot">
+          <img src="../assets/img/brol/affiche1-800.jpg" srcset="../assets/img/brol/affiche1-800.jpg 800w, ../assets/img/brol/affiche1-1600.jpg 979w" sizes="(min-width: 700px) 30vw, 90vw" width="800" height="1313" loading="lazy" alt="" data-i18n-attr="alt:pages.brol.alt.affiche1">
+        </figure>
+        <figure class="shot">
+          <img src="../assets/img/brol/affiche2-800.jpg" srcset="../assets/img/brol/affiche2-800.jpg 800w, ../assets/img/brol/affiche2-1600.jpg 870w" sizes="(min-width: 700px) 30vw, 90vw" width="800" height="1663" loading="lazy" alt="" data-i18n-attr="alt:pages.brol.alt.affiche2">
+        </figure>
+        <figure class="shot">
+          <img src="../assets/img/brol/affiche3-800.jpg" srcset="../assets/img/brol/affiche3-800.jpg 800w, ../assets/img/brol/affiche3-1600.jpg 1098w" sizes="(min-width: 700px) 30vw, 90vw" width="800" height="1043" loading="lazy" alt="" data-i18n-attr="alt:pages.brol.alt.affiche3">
+        </figure>
+      </div>
+
+      <div class="gallery" style="margin-top: var(--space-5);">
+        <figure class="reveal">
+          <img class="shot" src="../assets/img/brol/affiche_mur-800.jpg" srcset="../assets/img/brol/affiche_mur-800.jpg 800w, ../assets/img/brol/affiche_mur-1600.jpg 1100w" sizes="(min-width: 700px) 45vw, 90vw" width="800" height="830" loading="lazy" alt="" data-i18n-attr="alt:pages.brol.alt.mur">
+          <figcaption data-i18n="pages.brol.cap.mur"></figcaption>
+        </figure>
+        <figure class="reveal">
+          <img class="shot" src="../assets/img/brol/affiche_rue-800.jpg" srcset="../assets/img/brol/affiche_rue-800.jpg 800w, ../assets/img/brol/affiche_rue-1600.jpg 1100w" sizes="(min-width: 700px) 45vw, 90vw" width="800" height="830" loading="lazy" alt="" data-i18n-attr="alt:pages.brol.alt.rue">
+          <figcaption data-i18n="pages.brol.cap.rue"></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 5. PAPETERIE ========== -->
+  <section class="pj-section tinted" aria-labelledby="print-title">
+    <div class="br-shape" style="--c: var(--br-pink); right: -6%; top: -10%; width: clamp(140px, 18vw, 260px);" aria-hidden="true"></div>
+    <div class="wrap">
+      <h2 id="print-title" class="reveal" data-i18n="pages.brol.printTitle"></h2>
+      <div class="gallery">
+        <figure class="reveal">
+          <img class="shot" src="../assets/img/brol/carte-800.jpg" srcset="../assets/img/brol/carte-800.jpg 800w, ../assets/img/brol/carte-1600.jpg 1100w" sizes="(min-width: 700px) 45vw, 90vw" width="800" height="731" loading="lazy" alt="" data-i18n-attr="alt:pages.brol.alt.carte">
+          <figcaption data-i18n="pages.brol.cap.carte"></figcaption>
+        </figure>
+        <figure class="reveal">
+          <img class="shot" src="../assets/img/brol/tote-800.jpg" srcset="../assets/img/brol/tote-800.jpg 800w, ../assets/img/brol/tote-1600.jpg 1100w" sizes="(min-width: 700px) 45vw, 90vw" width="800" height="927" loading="lazy" alt="" data-i18n-attr="alt:pages.brol.alt.tote">
+          <figcaption data-i18n="pages.brol.cap.tote"></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 6. LA CHARTE ========== -->
+  <section class="pj-section" aria-labelledby="charter-title">
+    <div class="wrap">
+      <h2 id="charter-title" class="reveal" data-i18n="pages.brol.charterTitle"></h2>
+      <p data-i18n="pages.brol.charterText"></p>
+
+      <h3 class="reveal" data-i18n="pages.brol.paletteTitle"></h3>
+      <p data-i18n="pages.brol.paletteText"></p>
+      <!-- Palette en pastilles rondes, comme dans la charte -->
+      <ul class="swatches">
+        <li style="--c: #C33723;">rouge brique <code>#C33723</code></li>
+        <li style="--c: #0E3B2E;">vert forêt <code>#0E3B2E</code></li>
+        <li style="--c: #FADAD7;">rose pâle <code>#FADAD7</code></li>
+        <li style="--c: #F5F1EC;">crème <code>#F5F1EC</code></li>
+        <li style="--c: #CDE7FF;">bleu pâle <code>#CDE7FF</code></li>
+        <li style="--c: #111111;">noir <code>#111111</code></li>
+      </ul>
+
+      <div class="gallery" style="margin-top: var(--space-5);">
+        <figure class="reveal">
+          <img class="shot" src="../assets/img/brol/charte-fonds-800.jpg" srcset="../assets/img/brol/charte-fonds-800.jpg 800w, ../assets/img/brol/charte-fonds-1600.jpg 1600w" sizes="(min-width: 700px) 45vw, 90vw" width="800" height="565" loading="lazy" alt="" data-i18n-attr="alt:pages.brol.alt.fonds">
+          <figcaption data-i18n="pages.brol.cap.fonds"></figcaption>
+        </figure>
+        <figure class="reveal">
+          <img class="shot" src="../assets/img/brol/charte-formes-800.jpg" srcset="../assets/img/brol/charte-formes-800.jpg 800w, ../assets/img/brol/charte-formes-1600.jpg 1600w" sizes="(min-width: 700px) 45vw, 90vw" width="800" height="565" loading="lazy" alt="" data-i18n-attr="alt:pages.brol.alt.formes">
+          <figcaption data-i18n="pages.brol.cap.formes"></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <a class="next to-aline" href="aline.html">
+    <span data-i18n="ui.next"></span>
+    <strong><img src="../assets/img/aline/logo.svg" width="3492" height="1380" alt="aline"><b aria-hidden="true">→</b></strong>
+  </a>
+
+</main>
+
+<script src="../js/content.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

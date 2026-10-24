@@ -1,0 +1,344 @@
+/* ==========================================================
+   Touffe : la DA de la campagne « À poil les préjugés »
+   Aplats rose, vert, jaune pelouse et vert d'eau. La typo Touffe pour les titres,
+   toujours en capitales (son « s » minuscule est cassé, et la campagne l'emploie en capitales),
+   Rubik pour le texte et les chiffres. Pancartes roses, touffes de poils, cartes de la brochure.
+   Le ton est à l'humour : ça penche et ça rebondit.
+   ========================================================== */
+
+.pg-touffe {
+  --tf-pink: #F4CDD3;
+  --tf-pink-strong: #F2AEB9;
+  --tf-green: #2B6439;
+  --tf-mint: #D8E7C0;
+  --tf-yellow: #F3DC8C;
+
+  --pg-bg: var(--tf-yellow);
+  --pg-fg: var(--tf-green);
+  --pg-accent: var(--tf-green);
+  --f-display: var(--f-touffe);
+  --f-body: "Rubik", system-ui, sans-serif;
+
+  --curtain: var(--tf-green);
+  --progress-color: var(--tf-green);
+
+  /* Poils dessinés : de petits traits courbes, en vert ou en rose */
+  --hair-green: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90' fill='none' stroke='%232B6439' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M10 19q4-6 2-12M38 13q-5 5-3 12M70 21q5-4 4-12M84 45q-3 6 1 12M24 43q5-3 5-11M54 49q-4 5-1 12M9 73q4-5 3-12M37 84q-4-5-1-12M66 79q4-6 2-12'/%3E%3C/svg%3E");
+  --hair-pink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90' fill='none' stroke='%23F2AEB9' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M10 19q4-6 2-12M38 13q-5 5-3 12M70 21q5-4 4-12M84 45q-3 6 1 12M24 43q5-3 5-11M54 49q-4 5-1 12M9 73q4-5 3-12M37 84q-4-5-1-12M66 79q4-6 2-12'/%3E%3C/svg%3E");
+
+  background: var(--tf-yellow);
+  color: var(--tf-green);
+}
+
+.pg-touffe :focus-visible { outline-color: var(--tf-green); }
+.pg-touffe .tone-green :focus-visible { outline-color: var(--tf-pink); }
+.pg-touffe .skip-link { background: var(--tf-pink); color: var(--tf-green); }
+
+/* La typo Touffe, toujours en capitales */
+.pg-touffe .pj-title,
+.pg-touffe .pj-tagline,
+.pg-touffe h2,
+.pg-touffe h3,
+.pg-touffe .logo,
+.pg-touffe .pj-quote,
+.pg-touffe .specimen,
+.pg-touffe .tester output { text-transform: uppercase; }
+
+/* ---------- En-tête et pied de page : vert, texte rose, comme les slides de la campagne ---------- */
+
+.pg-touffe .site-header { background: rgb(43 100 57 / 0.96); color: var(--tf-pink); box-shadow: 0 14px 34px rgb(43 100 57 / 0.25); }
+.pg-touffe .logo { font-family: var(--f-touffe); font-size: 1.75rem; padding-top: 0.1em; }
+.pg-touffe .logo span { color: var(--tf-yellow); }
+.pg-touffe .menu a { font-weight: 500; }
+.pg-touffe .menu a:hover { background: var(--tf-pink); color: var(--tf-green); }
+.pg-touffe .lang-switch { background: rgb(244 205 211 / 0.16); }
+.pg-touffe .lang-switch button { color: var(--tf-pink); font-family: var(--f-body); }
+.pg-touffe .lang-switch button[aria-pressed="true"] { background: var(--tf-pink); color: var(--tf-green); }
+.pg-touffe .menu-toggle { background: var(--tf-pink); color: var(--tf-green); font-family: var(--f-body); }
+
+@media (max-width: 760px) {
+  .pg-touffe .site-header { background: var(--tf-green); }
+  .pg-touffe .menu { background: var(--tf-pink-strong); }
+  .pg-touffe .menu a { font-family: var(--f-touffe); text-transform: uppercase; color: var(--tf-green); }
+  .pg-touffe .menu a:hover { background: var(--tf-green); color: var(--tf-pink); }
+}
+
+.pg-touffe .site-footer { background: var(--tf-green); color: var(--tf-pink); }
+
+/* ---------- En-tête du projet : l'affiche « pelouse » ---------- */
+
+.pg-touffe .pj-hero { background: var(--tf-yellow); color: var(--tf-green); }
+
+.pg-touffe .pj-back {
+  padding: 0.5rem 1.15rem;
+  background: var(--tf-green);
+  color: var(--tf-pink);
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  transition: transform 0.3s var(--ease-bounce);
+}
+.pg-touffe .pj-back:hover { transform: rotate(-3deg); }
+
+.pg-touffe .pj-title { width: min(100%, 760px); }
+
+/* La signature sur une pancarte rose, comme sur les affiches */
+.pg-touffe .pj-tagline {
+  display: inline-block;
+  margin-top: var(--space-3);
+  padding: 0.35em 0.75em 0.25em;
+  background: var(--tf-pink-strong);
+  color: var(--tf-green);
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  box-shadow: 0 18px 34px rgb(43 100 57 / 0.2);
+  rotate: -4deg;
+}
+
+.pg-touffe .pj-meta { padding-top: var(--space-3); border-top: 2px solid rgb(43 100 57 / 0.3); }
+.pg-touffe .pj-meta dt { letter-spacing: 0.08em; }
+
+/* Touffe de poils : un motif de traits, fondu en cercle */
+.tf-hair {
+  position: absolute;
+  z-index: -1;
+  aspect-ratio: 1;
+  background: var(--hair-green) 0 0 / 54px;
+  -webkit-mask-image: radial-gradient(closest-side, #000 42%, transparent 100%);
+  mask-image: radial-gradient(closest-side, #000 42%, transparent 100%);
+  rotate: -14deg;
+  pointer-events: none;
+}
+.tone-green .tf-hair { background-image: var(--hair-pink); }
+
+/* ---------- Sections en aplats ---------- */
+
+.pg-touffe .tone-pink { --tone-bg: var(--tf-pink); --tone-fg: var(--tf-green); }
+.pg-touffe .tone-mint { --tone-bg: var(--tf-mint); --tone-fg: var(--tf-green); }
+.pg-touffe .tone-yellow { --tone-bg: var(--tf-yellow); --tone-fg: var(--tf-green); }
+.pg-touffe .tone-green { --tone-bg: var(--tf-green); --tone-fg: var(--tf-pink); }
+.pg-touffe .pj-section { --veil: var(--tone-bg); isolation: isolate; background: var(--tone-bg); color: var(--tone-fg); }
+.pg-touffe .pj-section h2 { font-size: clamp(2.4rem, 5.6vw, 4.6rem); line-height: 0.95; letter-spacing: 0.01em; }
+
+.pg-touffe .shot { border-radius: 18px; box-shadow: 0 18px 40px rgb(20 50 28 / 0.22); }
+.tf-logo-card { padding: 9% 8%; }
+
+/* Typo : spécimen + testeur */
+.pg-touffe .specimen {
+  max-width: none;
+  margin-top: var(--space-4);
+  font-family: var(--f-touffe);
+  font-size: clamp(2.4rem, 7vw, 6rem);
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+.tester { display: grid; gap: 0.7rem; margin-top: var(--space-4); }
+.tester label { font-weight: 600; }
+.tester input {
+  width: 100%;
+  min-height: 56px;
+  padding: 0.6rem 1.4rem;
+  border: 3px solid var(--tf-pink);
+  border-radius: var(--radius-pill);
+  background: #FFFFFF;
+  color: var(--tf-green);
+  font: 600 1.1rem var(--f-body);
+}
+.tester output {
+  display: block;
+  min-height: 1.2em;
+  padding: var(--space-4) var(--space-3);
+  background: var(--tf-pink-strong);
+  color: var(--tf-green);
+  font-family: var(--f-touffe);
+  font-size: clamp(2.4rem, 8vw, 6.5rem);
+  line-height: 1;
+  overflow-wrap: anywhere;
+  box-shadow: 0 18px 34px rgb(0 0 0 / 0.2);
+  transform: rotate(-1.5deg);
+}
+
+/* Brief */
+.pg-touffe .pj-quote {
+  max-width: 22ch;
+  margin-top: var(--space-4);
+  font-family: var(--f-touffe);
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.05;
+}
+.pj-quote-note { margin-top: var(--space-2); font-style: italic; }
+
+/* Chiffres : les cartes de la brochure, posées de travers */
+.pg-touffe .stats { gap: var(--space-4) var(--space-3); margin-top: var(--space-2); }
+.pg-touffe .stat {
+  background: var(--tf-green);
+  color: var(--tf-pink);
+  border-radius: 22px;
+  box-shadow: 0 18px 34px rgb(20 50 28 / 0.22);
+  text-align: center;
+  rotate: -2deg; /* rotate, et non transform : transform sert déjà à l'apparition */
+}
+.pg-touffe .stat strong { font-family: var(--f-body); font-weight: 800; font-size: clamp(3rem, 6vw, 4.6rem); color: var(--tf-pink-strong); }
+.pg-touffe .stat span { font-weight: 500; }
+.pg-touffe .stat:nth-child(2) { --reveal-delay: 0.12s; background: var(--tf-pink); color: var(--tf-green); rotate: 2deg; }
+.pg-touffe .stat:nth-child(2) strong { color: var(--tf-green); }
+.pg-touffe .stat:nth-child(3) { --reveal-delay: 0.24s; rotate: -1deg; }
+
+/* Objectifs : des étiquettes numérotées */
+/* Six objectifs : deux lignes de trois (deux colonnes sur tablette, une sur téléphone) */
+.numbered { counter-reset: n; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-2); }
+@media (max-width: 860px) { .numbered { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .numbered { grid-template-columns: 1fr; } }
+.numbered li {
+  counter-increment: n;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 1.25rem;
+  background: var(--tf-pink);
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.numbered li:nth-child(odd) { transform: rotate(-1deg); }
+.numbered li:nth-child(even) { transform: rotate(1deg); }
+.numbered li::before {
+  content: counter(n);
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 50%;
+  background: var(--tf-green);
+  color: var(--tf-pink);
+  font-weight: 800;
+}
+
+/* Affiches en éventail */
+.pg-touffe .posters figure { border-radius: 10px; box-shadow: 0 22px 44px rgb(0 0 0 / 0.3); transition: transform 0.5s var(--ease-bounce); }
+.pg-touffe .posters figure:nth-child(1) { transform: rotate(-4deg); }
+.pg-touffe .posters figure:nth-child(2) { transform: rotate(2deg) translateY(28px); }
+.pg-touffe .posters figure:nth-child(3) { transform: rotate(-1deg); }
+.pg-touffe .posters figure:hover { position: relative; z-index: 2; transform: rotate(0) scale(1.04); }
+
+/* Galeries : chaque image arrive un peu de travers */
+.pg-touffe .gallery figure:nth-child(4n + 1) { --reveal-rot: -3deg; }
+.pg-touffe .gallery figure:nth-child(4n + 2) { --reveal-rot: 3deg; --reveal-delay: 0.1s; }
+.pg-touffe .gallery figure:nth-child(4n + 3) { --reveal-rot: 2deg; }
+.pg-touffe .gallery figure:nth-child(4n) { --reveal-rot: -2deg; --reveal-delay: 0.1s; }
+.pg-touffe figcaption {
+  display: inline-block;
+  padding: 0.35rem 1rem;
+  background: var(--tf-green);
+  color: var(--tf-pink);
+  border-radius: var(--radius-pill);
+}
+
+/* ---------- Le site web : écrans qui défilent au survol ---------- */
+
+.site-preview {
+  position: relative;
+  margin-top: var(--space-4);
+  padding: 0 clamp(56px, 13%, 170px) var(--space-4) 0;
+}
+.sp-desktop,
+.sp-phone {
+  display: block;
+  overflow: hidden;
+  box-shadow: 0 24px 48px rgb(0 0 0 / 0.32);
+  transition: scale 0.5s var(--ease-bounce);
+}
+.sp-desktop {
+  border: 3px solid var(--tf-pink);
+  border-radius: 16px;
+  background: var(--tf-pink);
+  rotate: -1deg; /* rotate, et non transform : transform sert déjà à l'apparition */
+}
+.sp-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 14px 11px;
+  color: var(--tf-green);
+  font: 500 0.8rem var(--f-body);
+}
+.sp-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--tf-green); opacity: 0.35; }
+.sp-bar b {
+  overflow: hidden;
+  margin-left: 10px;
+  padding: 2px 14px;
+  border-radius: var(--radius-pill);
+  background: rgb(255 255 255 / 0.55);
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.sp-phone {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: clamp(120px, 22%, 270px);
+  padding: 7px;
+  border-radius: 30px;
+  background: var(--tf-pink-strong);
+  rotate: 4deg;
+}
+.sp-screen {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  object-position: 50% 0;
+  background: #FFFFFF;
+  transition: object-position 1.2s var(--ease-in-out);
+}
+.sp-desktop .sp-screen { aspect-ratio: 16 / 10; border-radius: 0 0 12px 12px; }
+.sp-phone .sp-screen { aspect-ratio: 390 / 844; border-radius: 24px; }
+.sp-desktop:hover,
+.sp-phone:hover { scale: 1.015; }
+.sp-desktop:hover .sp-screen,
+.sp-phone:hover .sp-screen { object-position: 50% 100%; transition: object-position 16s linear; }
+
+.sp-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); }
+.sp-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  min-height: 56px;
+  padding: 0.7rem 1.6rem 0.55rem;
+  border-radius: var(--radius-pill);
+  background: var(--tf-pink);
+  color: var(--tf-green);
+  font-family: var(--f-touffe);
+  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 16px 30px rgb(0 0 0 / 0.25);
+  rotate: -2deg;
+  transition: transform 0.3s var(--ease-bounce);
+}
+.sp-cta:hover { transform: rotate(4deg) scale(1.05); }
+
+/* Dans l'en-tête : sous le slogan, puis dans le vide à droite du logo sur grand écran */
+.tf-hero-cta { margin-top: var(--space-4); white-space: nowrap; }
+@media (min-width: 1100px) {
+  .pg-touffe .pj-hero .wrap { display: grid; grid-template-columns: minmax(0, 760px) 1fr; column-gap: var(--space-4); }
+  .pg-touffe .pj-hero .wrap > * { grid-column: 1 / -1; }
+  .pg-touffe .pj-hero .pj-back { justify-self: start; }
+  .pg-touffe .pj-hero .pj-title { grid-column: 1; width: 100%; }
+  .pg-touffe .pj-hero .tf-hero-cta { grid-column: 2; grid-row: 2; align-self: center; justify-self: center; margin-top: 0; }
+}
+.sp-arrow { font-family: var(--f-body); font-weight: 800; translate: 0 -0.06em; }
+.pg-touffe .sp-hint { font-size: var(--fs-small); opacity: 0.8; }
+@media (hover: none) { .pg-touffe .sp-hint { display: none; } }
+
+@media (max-width: 700px) {
+  .site-preview { padding-right: 18%; }
+  .sp-phone { width: 34%; padding: 5px; border-radius: 20px; }
+  .sp-phone .sp-screen { border-radius: 15px; }
+  .sp-bar b { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sp-desktop:hover .sp-screen,
+  .sp-phone:hover .sp-screen { object-position: 50% 0; }
+}

@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Emilie Deboeck — direction artistique, graphisme & web</title>
+  <meta name="description" content="">
+  <meta property="og:title" content="Emilie Deboeck — direction artistique, graphisme & web">
+  <meta property="og:image" content="assets/img/touffe/affiche-touffe-1600.jpg">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Caveat : l'écriture à la main du post-it -->
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
+  <!-- Archivo étroit, seulement pour « & » et « @ » qui manquent à Emilie Display -->
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62,900&text=%26%40&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="pg-home" data-page="home" data-root="">
+
+<main id="main">
+
+  <!-- ========== HERO : le nom à gauche ; à droite, qui, quoi, ce qu'elle cherche, comment la joindre ========== -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <h1 class="hero-name" id="hero-title">
+        <span data-i18n="hero.first"></span>
+        <span data-i18n="hero.last"></span>
+      </h1>
+      <div class="hero-text">
+        <p class="hero-role" data-i18n="hero.role"></p>
+        <p class="hero-sub" data-i18n="hero.sub"></p>
+        <p class="hero-status"><span class="dot" aria-hidden="true"></span><span data-i18n="hero.status"></span></p>
+        <div class="hero-actions">
+          <a class="hero-btn hero-btn-solid" href="#contact" data-i18n="hero.contact"></a>
+          <a class="hero-btn" href="assets/docs/cv-emilie-deboeck.pdf" download data-i18n="hero.cv"></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MANIFESTE : colonne centrée, lue mot à mot ========== -->
+  <div class="manifesto">
+    <p class="manifesto-text" data-words data-i18n="hero.intro"></p>
+  </div>
+
+  <!-- ========== PROJETS ========== -->
+  <section class="section work" id="projets" aria-labelledby="work-title">
+    <div class="wrap">
+      <!-- Index : une affiche à gauche, les noms des projets à droite sur la bande jaune -->
+      <div class="work-index">
+        <div class="work-index-media" data-center aria-hidden="true">
+          <img class="is-active" src="assets/img/brol/affiche3-800.jpg" width="800" height="1043" loading="lazy" alt="">
+          <img src="assets/img/aline/affiche-800.jpg" width="566" height="800" loading="lazy" alt="">
+          <img src="assets/img/touffe/affiche-touffe-800.jpg" width="565" height="800" loading="lazy" alt="">
+        </div>
+        <div class="work-index-panel" data-center>
+          <span class="label" data-i18n="work.label"></span>
+          <h2 id="work-title" class="reveal" data-i18n="work.title"></h2>
+          <ul class="work-index-list" data-slide-in>
+            <li><a href="projets/brol.html" data-show="0"><span data-i18n="work.brol.num"></span> <strong><img src="assets/img/brol/wordmark.svg" width="3780" height="1512" alt=".brol"></strong> <em data-i18n="work.brol.type"></em></a></li>
+            <li><a href="projets/aline.html" data-show="1"><span data-i18n="work.aline.num"></span> <strong><img src="assets/img/aline/wordmark.svg" width="3492" height="1188" alt="aline"></strong> <em data-i18n="work.aline.type"></em></a></li>
+            <li><a href="projets/touffe.html" data-show="2"><span data-i18n="work.touffe.num"></span> <strong><img src="assets/img/touffe/logo.svg" width="4096" height="1210" alt="Touffe"></strong> <em data-i18n="work.touffe.type"></em></a></li>
+          </ul>
+        </div>
+      </div>
+
+      <ol class="stack">
+        <!-- .brol -->
+        <li class="card brol on-dark" style="--i: 0;">
+          <div class="card-text">
+            <span class="card-num" data-i18n="work.brol.num"></span>
+            <h3 class="card-name reveal"><img src="assets/img/brol/logo-cream.svg" width="3780" height="1782" alt=".brol"></h3>
+            <ul class="card-tags">
+              <li data-i18n="work.brol.type"></li>
+              <li data-i18n="work.brol.frame"></li>
+            </ul>
+            <p class="card-pitch" data-i18n="work.brol.pitch"></p>
+            <p class="card-role"><span class="card-role-label" data-i18n="pages.labels.role"></span> <span data-i18n="work.brol.role"></span></p>
+            <a class="card-link" href="projets/brol.html"><span data-i18n="work.view"></span></a>
+          </div>
+          <div class="card-media">
+            <img class="m1" src="assets/img/brol/affiche1-800.jpg" width="800" height="1313" loading="lazy" alt="" data-i18n-attr="alt:work.alt.brolPoster1">
+            <img class="m2" src="assets/img/brol/affiche3-800.jpg" width="800" height="1043" loading="lazy" alt="" data-i18n-attr="alt:work.alt.brolPoster3">
+            <img class="m3" src="assets/img/brol/affiche2-800.jpg" width="800" height="1663" loading="lazy" alt="" data-i18n-attr="alt:work.alt.brolPoster2">
+          </div>
+        </li>
+
+        <!-- aline -->
+        <li class="card aline on-dark" style="--i: 1;">
+          <div class="card-text">
+            <span class="card-num" data-i18n="work.aline.num"></span>
+            <h3 class="card-name reveal"><img src="assets/img/aline/logo.svg" width="3492" height="1380" alt="aline"></h3>
+            <ul class="card-tags">
+              <li data-i18n="work.aline.type"></li>
+              <li data-i18n="work.aline.frame"></li>
+            </ul>
+            <p class="card-pitch" data-i18n="work.aline.pitch"></p>
+            <p class="card-role"><span class="card-role-label" data-i18n="pages.labels.role"></span> <span data-i18n="work.aline.role"></span></p>
+            <a class="card-link" href="projets/aline.html"><span data-i18n="work.view"></span></a>
+          </div>
+          <div class="card-media">
+            <img class="m1" src="assets/img/aline/affiche-800.jpg" width="566" height="800" loading="lazy" alt="" data-i18n-attr="alt:work.alt.alinePoster">
+            <img class="m2" src="assets/img/aline/ecrans-trio-855.webp" srcset="assets/img/aline/ecrans-trio-855.webp 855w, assets/img/aline/ecrans-trio-1710.webp 1710w" sizes="(min-width: 900px) 40vw, 70vw" width="855" height="529" loading="lazy" alt="" data-i18n-attr="alt:work.alt.alineScreens">
+          </div>
+        </li>
+
+        <!-- Touffe -->
+        <li class="card touffe" style="--i: 2;">
+          <div class="card-text">
+            <span class="card-num" data-i18n="work.touffe.num"></span>
+            <h3 class="card-name reveal"><img src="assets/img/touffe/logo.svg" width="4096" height="1210" alt="Touffe"></h3>
+            <ul class="card-tags">
+              <li data-i18n="work.touffe.type"></li>
+              <li data-i18n="work.touffe.frame"></li>
+            </ul>
+            <p class="card-pitch" data-i18n="work.touffe.pitch"></p>
+            <p class="card-role"><span class="card-role-label" data-i18n="pages.labels.role"></span> <span data-i18n="work.touffe.role"></span></p>
+            <a class="card-link" href="projets/touffe.html"><span data-i18n="work.view"></span></a>
+          </div>
+          <div class="card-media">
+            <img class="m1" src="assets/img/touffe/affiche-pelouse-800.jpg" width="565" height="800" loading="lazy" alt="" data-i18n-attr="alt:work.alt.touffePoster2">
+            <img class="m2" src="assets/img/touffe/affiche-touffe-800.jpg" width="565" height="800" loading="lazy" alt="" data-i18n-attr="alt:work.alt.touffePoster">
+            <img class="m3" src="assets/img/touffe/affiche-paix-800.jpg" width="565" height="800" loading="lazy" alt="" data-i18n-attr="alt:work.alt.touffePoster3">
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ========== À PROPOS : un papier menthe, le portrait collé par-dessus ========== -->
+  <section class="section about on-dark" id="a-propos" aria-labelledby="about-title">
+    <div class="wrap about-grid">
+      <div class="about-paper" data-center>
+        <h2 id="about-title" class="reveal" data-i18n="about.label"></h2>
+        <p class="about-lead" data-i18n="about.p1"></p>
+        <p data-i18n="about.p2"></p>
+        <p data-i18n="about.p3"></p>
+        <h3 data-i18n="about.offTitle"></h3>
+        <ul class="chips" data-render="list" data-src="about.off"></ul>
+      </div>
+
+      <figure class="about-collage reveal" data-center>
+        <span class="collage-photo"><img src="assets/img/emilie-1200.jpg" srcset="assets/img/emilie-600.jpg 400w, assets/img/emilie-1200.jpg 800w" sizes="(min-width: 860px) 420px, 78vw" width="800" height="1200" loading="lazy" alt="" data-i18n-attr="alt:about.photoAlt"></span>
+        <svg class="doodle-arrow" viewBox="0 0 180 120" aria-hidden="true"><path pathLength="1" d="M8 112 C 46 104, 74 86, 96 62 S 136 22, 168 14"/><path pathLength="1" d="M142 8 L170 13 L154 38"/></svg>
+        <p class="note note-salmon" data-i18n="about.title"></p>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ========== CV ========== -->
+  <section class="section skills" id="cv" aria-labelledby="skills-title">
+    <div class="wrap">
+      <div class="section-head" data-center>
+        <span class="label" data-i18n="skills.label" style="color: var(--red);"></span>
+        <h2 id="skills-title" class="reveal" data-i18n="skills.title"></h2>
+      </div>
+
+      <div class="skills-grid" data-center>
+        <div class="reveal">
+          <h3 data-i18n="skills.doTitle"></h3>
+          <ul class="big-list" data-slide-in data-render="list" data-src="skills.do"></ul>
+        </div>
+        <div class="reveal" style="--reveal-delay: 0.1s; --reveal-rot: -2deg;">
+          <h3 data-i18n="skills.toolsTitle"></h3>
+          <ul class="chips" data-render="list" data-src="skills.tools"></ul>
+        </div>
+        <div class="reveal" style="--reveal-delay: 0.2s;">
+          <h3 data-i18n="skills.langTitle"></h3>
+          <ul class="plain-list" data-render="list" data-src="skills.langs"></ul>
+        </div>
+      </div>
+
+      <div class="path reveal">
+        <h3 data-i18n="skills.pathTitle"></h3>
+        <ol class="timeline" data-render="timeline" data-src="skills.path"></ol>
+      </div>
+
+      <a class="cv-button" href="assets/docs/cv-emilie-deboeck.pdf" download>
+        <span data-i18n="skills.cv"></span>
+        <small data-i18n="skills.cvNote"></small>
+      </a>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT : le même collage que le hero, le titre penché, une affiche posée de biais, un post-it ========== -->
+  <section class="section contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap contact-grid" data-center>
+      <div class="contact-text">
+        <span class="label" data-i18n="contact.label"></span>
+        <h2 id="contact-title" class="reveal" data-i18n="contact.title"></h2>
+        <p class="contact-sub" data-i18n="contact.sub"></p>
+
+        <div class="contact-actions">
+          <a class="email" href="mailto:emilie.deboeck@icloud.com" data-i18n="contact.email"></a>
+          <button class="btn" type="button" data-copy data-i18n="contact.copy"></button>
+        </div>
+        <a class="linkedin" href="https://www.linkedin.com/in/emilie-deboeck-45b913330/" target="_blank" rel="noopener">
+          <span data-i18n="contact.linkedin"></span><span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <figure class="contact-collage reveal">
+        <span class="collage-photo"><img src="assets/img/brol/affiche_mur-1600.jpg" srcset="assets/img/brol/affiche_mur-800.jpg 800w, assets/img/brol/affiche_mur-1600.jpg 1100w" sizes="(min-width: 860px) 36vw, 80vw" width="1100" height="1141" loading="lazy" alt=""></span>
+        <p class="note note-salmon" data-i18n="contact.note"></p>
+      </figure>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/content.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

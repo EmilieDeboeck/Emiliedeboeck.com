@@ -1,0 +1,260 @@
+/* ==========================================================
+   aline : la DA de la charte (Court-Circuit ASBL, v1.0 · 2026)
+   Dark first, rouge sur noir. Outfit pour les titres (minuscules, -0.03em),
+   DM Sans pour le texte. Composants : pilules, chips, cartes. Pas de rotation.
+   ========================================================== */
+
+.pg-aline {
+  --al-black: #0D0D0D;
+  --al-card: #161616;
+  --al-card-2: #1E1E1E;
+  --al-line: #2A2A2A;
+  --al-muted: #9A9A9A;
+  --al-red: #E8173D;
+  --al-orange: #F2621D;
+  --al-yellow: #F5E642;
+  --al-green: #2DC76D;
+  --al-blue: #4DAAED;
+  --al-violet: #8B7FE8;
+  --al-pink: #F0509E;
+
+  --pg-bg: var(--al-black);
+  --pg-fg: #FFFFFF;
+  --pg-accent: var(--al-red);
+  --f-display: var(--f-aline);
+  --f-body: "DM Sans", system-ui, sans-serif;
+
+  /* Mouvement d'app : ça glisse, ça ne rebondit pas */
+  --curtain: var(--al-red);
+  --progress-color: var(--al-red);
+  --reveal-rot: 0deg;
+  --word-rot: 0deg;
+  --word-ease: var(--ease-out);
+  --slide-rot: 0;
+  --letter-y: 0.4em;
+  --letter-rot: 0deg;
+  --letter-ease: var(--ease-out);
+  --letter-hover: none;
+
+  background: var(--al-black);
+  color: #FFFFFF;
+}
+
+.pg-aline :focus-visible { outline-color: #FFFFFF; }
+.pg-aline .skip-link { background: var(--al-red); color: #FFFFFF; }
+
+/* ---------- En-tête et pied de page ---------- */
+
+.pg-aline .site-header {
+  background: rgb(22 22 22 / 0.82);
+  border: 1px solid var(--al-line);
+  box-shadow: none;
+  backdrop-filter: blur(14px);
+  color: #FFFFFF;
+}
+.pg-aline .logo { padding-top: 0; font-family: var(--f-aline); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.04em; }
+.pg-aline .logo span { color: var(--al-red); }
+.pg-aline .menu a { font-weight: 500; }
+.pg-aline .menu a:hover { background: var(--al-card-2); }
+.pg-aline .lang-switch { background: var(--al-card-2); }
+.pg-aline .lang-switch button { color: #FFFFFF; font-family: var(--f-body); }
+.pg-aline .lang-switch button[aria-pressed="true"] { background: var(--al-red); }
+.pg-aline .menu-toggle { background: var(--al-red); color: #FFFFFF; font-family: var(--f-body); }
+
+@media (max-width: 760px) {
+  .pg-aline .site-header { background: var(--al-card); }
+  .pg-aline .menu { background: var(--al-card); border-left: 1px solid var(--al-line); border-radius: 28px 0 0 28px; }
+  .pg-aline .menu a { font-family: var(--f-aline); font-weight: 700; letter-spacing: -0.03em; text-transform: lowercase; color: #FFFFFF; }
+  .pg-aline .menu a:hover { background: var(--al-red); color: #FFFFFF; }
+}
+
+.pg-aline .site-footer { background: var(--al-black); color: var(--al-muted); border-top: 1px solid var(--al-line); }
+.pg-aline .site-footer a { color: #FFFFFF; }
+
+/* ---------- Titres : Outfit, en minuscules ---------- */
+
+.pg-aline h2,
+.pg-aline h3 { font-weight: 700; letter-spacing: -0.03em; text-transform: lowercase; }
+
+/* Numérotation des blocs comme dans la charte : « 01 / couleurs » */
+.pg-aline main { counter-reset: al-block; }
+.pg-aline .pj-section { counter-increment: al-block; padding-block: clamp(3rem, 7vw, 6rem); }
+.pg-aline .pj-section h2 { font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1; }
+.pg-aline .pj-section h2::before {
+  content: counter(al-block, decimal-leading-zero) " /";
+  display: block;
+  margin-bottom: 0.9rem;
+  font-family: var(--f-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--al-red);
+}
+.pg-aline .pj-section h3 { margin: var(--space-4) 0 var(--space-2); font-size: 1.4rem; }
+.pg-aline .pj-section p { color: rgb(255 255 255 / 0.78); }
+
+/* ---------- En-tête du projet : le halo rouge de l'écran « découvrir » ---------- */
+
+.pg-aline .pj-hero { padding-top: calc(var(--header-h) + var(--space-5)); }
+.pg-aline .pj-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60% 80% at 12% -10%, rgb(232 23 61 / 0.6), transparent 70%),
+    radial-gradient(40% 50% at 95% 20%, rgb(240 80 158 / 0.18), transparent 70%);
+}
+
+.pg-aline .pj-back {
+  padding: 0.55rem 1.2rem;
+  border: 1px solid #3A3A3A;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  transition: background 0.2s, border-color 0.2s;
+}
+.pg-aline .pj-back:hover { background: var(--al-card-2); border-color: #4A4A4A; }
+
+.pg-aline .pj-title { width: min(100%, 620px); }
+.pg-aline .pj-tagline {
+  margin-top: var(--space-3);
+  font-weight: 700;
+  font-size: clamp(2rem, 5.5vw, 4.4rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+}
+
+/* Chips de genres : la pastille « live » pleine, les autres teintées */
+.al-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: var(--space-3); }
+.al-chips li {
+  padding: 0.35rem 0.95rem;
+  border: 1px solid color-mix(in srgb, var(--c) 45%, transparent);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--c) 16%, transparent);
+  color: var(--c);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.al-chips .is-live { --c: var(--al-red); background: var(--al-red); color: #FFFFFF; }
+.al-chips .is-live::before { content: "●"; margin-right: 0.45em; font-size: 0.6em; vertical-align: 0.2em; }
+
+.pg-aline .pj-meta { margin-top: var(--space-5); }
+.pg-aline .pj-meta > div { padding-top: 0.9rem; border-top: 1px solid var(--al-line); }
+.pg-aline .pj-meta dt { margin-bottom: 0.3rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; color: var(--al-muted); }
+.pg-aline .pj-meta dd { font-weight: 500; }
+
+/* ---------- Blocs ---------- */
+
+/* Les sections « teintées » deviennent des cartes, comme les blocs de la charte */
+.pg-aline .pj-section.tinted { background: transparent; }
+.pg-aline .pj-section.tinted > .wrap {
+  padding: clamp(1.5rem, 4.5vw, 3.5rem);
+  background: var(--al-card);
+  border: 1px solid var(--al-line);
+  border-radius: 28px;
+}
+
+.pg-aline .shot { background: var(--al-card); border-radius: 20px; }
+.pg-aline .al-poster { justify-self: center; width: min(100%, 520px); }
+.al-logo { width: 220px; margin-top: var(--space-4); }
+
+.pg-aline .stat { background: var(--al-card-2); border: 1px solid var(--al-line); border-radius: 22px; }
+.pg-aline .stat strong { font-weight: 800; font-size: clamp(4.5rem, 10vw, 8rem); letter-spacing: -0.05em; color: var(--al-red); }
+.pg-aline .stat span { color: var(--al-muted); font-size: var(--fs-lead); }
+
+/* Ton de voix : une carte par réplique, la tagline en rouge */
+.pg-aline .voice {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  margin-top: var(--space-4);
+}
+.pg-aline .voice li {
+  display: flex;
+  align-items: end;
+  min-height: 150px;
+  padding: 1.4rem;
+  background: var(--al-card);
+  border: 1px solid var(--al-line);
+  border-radius: 20px;
+  font-family: var(--f-aline);
+  font-weight: 700;
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+.pg-aline .voice li:first-child { background: #2A0A12; border-color: #5C1527; color: var(--al-red); }
+
+/* Les deux familles typographiques */
+.al-type { display: grid; gap: 0.2rem; margin-top: var(--space-4); padding: 1.4rem; background: var(--al-card-2); border: 1px solid var(--al-line); border-radius: 20px; }
+.al-type-display { font-family: var(--f-aline); font-weight: 800; font-size: clamp(2.6rem, 5vw, 3.6rem); line-height: 1; letter-spacing: -0.04em; color: var(--al-red); }
+.al-type-body { font-family: var(--f-body); font-weight: 600; font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.1; letter-spacing: -0.03em; }
+
+/* Palette : des tuiles comme dans la charte, la couleur principale en grand */
+.pg-aline .swatches { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.pg-aline .swatches li {
+  align-content: space-between;
+  min-height: 104px;
+  border-radius: 16px;
+  font-family: var(--f-aline);
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+.pg-aline .swatches li:first-child { grid-row: span 2; }
+.pg-aline .swatches code { font-family: var(--f-body); font-size: 0.72rem; letter-spacing: 0.04em; opacity: 0.8; }
+@media (max-width: 520px) { .pg-aline .swatches { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* L'app : les trois téléphones détourés, posés directement sur le noir de la page */
+.al-phones {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+.al-phones li { display: grid; justify-items: center; align-content: start; gap: var(--space-2); }
+/* Rendus en haute définition depuis les écrans SVG : on peut les montrer plus grands */
+.al-phones img {
+  width: min(100%, 300px);
+  filter: drop-shadow(0 20px 30px rgb(0 0 0 / 0.6));
+}
+.al-phone-step {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--al-red);
+}
+.al-phone-cap { color: var(--al-muted); font-size: 0.95rem; }
+@media (max-width: 700px) {
+  .al-phones { grid-template-columns: 1fr; gap: var(--space-5); }
+  .al-phones img { width: min(75%, 300px); }
+}
+
+/* Le lien vers le prototype : le gros bouton pilule rouge de l'app */
+.al-try { display: grid; justify-items: start; gap: var(--space-2); margin-top: var(--space-5); }
+.al-try-btn {
+  padding: 1rem 2.2rem;
+  border-radius: var(--radius-pill);
+  background: var(--al-red);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 1.15rem;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s var(--ease-out);
+}
+.al-try-btn:hover { background: #FF2A52; transform: translateY(-2px); }
+.al-hero-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); margin-top: var(--space-3); }
+.al-hero-row .al-chips { margin-top: 0; }
+/* Sur grand écran, le bouton se place dans le vide à droite du logo */
+@media (min-width: 1100px) {
+  .pg-aline .pj-hero .wrap { display: grid; grid-template-columns: minmax(0, 620px) 1fr; column-gap: var(--space-4); }
+  .pg-aline .pj-hero .wrap > * { grid-column: 1 / -1; }
+  .pg-aline .pj-hero .pj-back { justify-self: start; }
+  .pg-aline .pj-hero .pj-title { grid-column: 1; width: 100%; }
+  .al-hero-row { display: contents; }
+  .al-hero-row .al-chips { grid-column: 1 / -1; margin-top: var(--space-3); }
+  .al-hero-row .al-try-btn { grid-column: 2; grid-row: 2; align-self: center; justify-self: center; padding: 1.3rem 2.8rem; font-size: 1.45rem; }
+}
+.pg-aline .al-try p { max-width: 34rem; color: var(--al-muted); font-size: 0.95rem; }

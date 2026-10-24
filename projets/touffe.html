@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Touffe — Emilie Deboeck</title>
+  <meta name="description" content="">
+  <meta property="og:image" content="../assets/img/touffe/affiche-touffe-1600.jpg">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Rubik : le texte et les chiffres de la campagne (la typo Touffe n'a pas de chiffres). DM Sans : le bloc « projet suivant » (.brol). -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/touffe.css">
+</head>
+<body class="pg-touffe" data-page="touffe" data-root="../">
+
+<main id="main">
+
+  <!-- ========== EN-TÊTE DU PROJET ========== -->
+  <section class="pj-hero" aria-labelledby="pj-title">
+    <!-- Une touffe de poils, comme la pelouse de l'affiche -->
+    <div class="tf-hair" style="right: -6%; top: 8%; width: clamp(260px, 42vw, 620px);" aria-hidden="true"></div>
+
+    <div class="wrap">
+      <a class="pj-back" href="../index.html#projets" data-i18n="ui.back"></a>
+      <h1 class="pj-title" id="pj-title">
+        <img src="../assets/img/touffe/logo.svg" width="4096" height="1210" alt="" data-i18n-attr="alt:pages.touffe.title">
+      </h1>
+      <p class="pj-tagline" lang="fr" data-i18n="pages.touffe.tagline"></p>
+
+      <!-- Le même bouton que sous les écrans du site, repris dans l'en-tête -->
+      <a class="sp-cta tf-hero-cta" href="team-touffe/index.html" target="_blank" rel="noopener">
+        <span data-i18n="pages.touffe.siteCta"></span>
+        <span class="sp-arrow" aria-hidden="true">↗</span>
+        <span class="visually-hidden" data-i18n="ui.newTab"></span>
+      </a>
+
+      <dl class="pj-meta">
+        <div><dt data-i18n="pages.labels.type"></dt><dd data-i18n="pages.touffe.type"></dd></div>
+        <div><dt data-i18n="pages.labels.frame"></dt><dd data-i18n="pages.touffe.frame"></dd></div>
+        <div><dt data-i18n="pages.labels.team"></dt><dd data-i18n="pages.touffe.team"></dd></div>
+        <div><dt data-i18n="pages.labels.role"></dt><dd data-i18n="pages.touffe.role"></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ========== 1. LE LOGO ========== -->
+  <section class="pj-section tone-mint" aria-labelledby="logo-title">
+    <div class="wrap pj-split">
+      <div>
+        <h2 id="logo-title" class="reveal" data-i18n="pages.touffe.logoTitle"></h2>
+        <p data-words data-i18n="pages.touffe.logoText"></p>
+      </div>
+      <figure class="shot tilt-r reveal tf-logo-card">
+        <img src="../assets/img/touffe/logo-signature.svg" width="4096" height="1286" alt="" data-i18n-attr="alt:pages.touffe.alt.logo">
+      </figure>
+    </div>
+  </section>
+
+  <!-- ========== 2. LA TYPO (avec testeur) ========== -->
+  <section class="pj-section tone-green" aria-labelledby="type-title">
+    <div class="wrap">
+      <h2 id="type-title" class="reveal" data-i18n="pages.touffe.typeTitle"></h2>
+      <p data-i18n="pages.touffe.typeText"></p>
+
+      <p class="specimen reveal" aria-hidden="true">ABCDEFGHIJKLM<br>NOPQRSTUVWXYZ</p>
+
+      <div class="tester">
+        <label for="type-tester" data-i18n="pages.touffe.tryLabel"></label>
+        <input id="type-tester" type="text" maxlength="40" autocomplete="off" spellcheck="false">
+        <output for="type-tester" id="type-tester-output" aria-live="off"></output>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 3. BRIEF ========== -->
+  <section class="pj-section tone-pink" aria-labelledby="brief-title">
+    <div class="tf-hair" style="left: -8%; bottom: -14%; width: clamp(200px, 26vw, 380px);" aria-hidden="true"></div>
+    <div class="wrap">
+      <h2 id="brief-title" class="reveal" data-i18n="pages.touffe.briefTitle"></h2>
+      <p data-words data-i18n="pages.touffe.briefText"></p>
+      <blockquote class="pj-quote reveal" lang="fr" data-i18n="pages.touffe.quote"></blockquote>
+      <p class="pj-quote-note" data-i18n="pages.touffe.quoteNote"></p>
+    </div>
+  </section>
+
+  <!-- ========== 4. DATA + OBJECTIFS ========== -->
+  <section class="pj-section tone-yellow" aria-labelledby="data-title">
+    <div class="wrap">
+      <h2 id="data-title" class="reveal" data-i18n="pages.touffe.dataTitle"></h2>
+      <ul class="stats" data-render="stats" data-src="pages.touffe.data"></ul>
+      <p class="source" data-i18n="pages.touffe.dataSource"></p>
+
+      <h2 class="reveal" data-i18n="pages.touffe.objTitle" style="margin-top: var(--space-5);"></h2>
+      <ol class="numbered" data-slide-in data-render="list" data-src="pages.touffe.obj"></ol>
+    </div>
+  </section>
+
+  <!-- ========== 5. AFFICHES ========== -->
+  <section class="pj-section tone-green" aria-labelledby="posters-title">
+    <div class="wrap">
+      <h2 id="posters-title" class="reveal" data-i18n="pages.touffe.postersTitle"></h2>
+      <p data-i18n="pages.touffe.postersText"></p>
+
+      <div class="posters" style="margin-top: var(--space-4);">
+        <figure class="shot">
+          <img src="../assets/img/touffe/affiche-pelouse-800.jpg" srcset="../assets/img/touffe/affiche-pelouse-800.jpg 565w, ../assets/img/touffe/affiche-pelouse-1600.jpg 1130w" sizes="(min-width: 700px) 30vw, 90vw" width="565" height="800" loading="lazy" alt="" data-i18n-attr="alt:pages.touffe.alt.pelouse">
+        </figure>
+        <figure class="shot">
+          <img src="../assets/img/touffe/affiche-touffe-800.jpg" srcset="../assets/img/touffe/affiche-touffe-800.jpg 565w, ../assets/img/touffe/affiche-touffe-1600.jpg 1131w" sizes="(min-width: 700px) 30vw, 90vw" width="565" height="800" loading="lazy" alt="" data-i18n-attr="alt:pages.touffe.alt.touffe">
+        </figure>
+        <figure class="shot">
+          <img src="../assets/img/touffe/affiche-paix-800.jpg" srcset="../assets/img/touffe/affiche-paix-800.jpg 565w, ../assets/img/touffe/affiche-paix-1600.jpg 1131w" sizes="(min-width: 700px) 30vw, 90vw" width="565" height="800" loading="lazy" alt="" data-i18n-attr="alt:pages.touffe.alt.paix">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 6. ILLUSTRATIONS ========== -->
+  <section class="pj-section tone-pink" aria-labelledby="illus-title">
+    <div class="wrap">
+      <h2 id="illus-title" class="reveal" data-i18n="pages.touffe.illusTitle"></h2>
+      <p data-i18n="pages.touffe.illusText"></p>
+
+      <div class="gallery" style="margin-top: var(--space-4);">
+        <figure class="reveal wide">
+          <img class="shot" src="../assets/img/touffe/illus-1600.jpg" srcset="../assets/img/touffe/illus-800.jpg 800w, ../assets/img/touffe/illus-1600.jpg 1600w" sizes="90vw" width="1600" height="899" loading="lazy" alt="" data-i18n-attr="alt:pages.touffe.alt.illus">
+        </figure>
+        <figure class="reveal">
+          <img class="shot" src="../assets/img/touffe/cibles-800.jpg" srcset="../assets/img/touffe/cibles-800.jpg 800w, ../assets/img/touffe/cibles-1600.jpg 1600w" sizes="(min-width: 700px) 45vw, 90vw" width="800" height="449" loading="lazy" alt="" data-i18n-attr="alt:pages.touffe.alt.cibles">
+        </figure>
+        <figure class="reveal">
+          <img class="shot" src="../assets/img/touffe/final-800.jpg" srcset="../assets/img/touffe/final-800.jpg 800w, ../assets/img/touffe/final-1600.jpg 1600w" sizes="(min-width: 700px) 45vw, 90vw" width="800" height="449" loading="lazy" alt="" data-i18n-attr="alt:pages.touffe.alt.final">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 7. LE SITE WEB : aperçu qui défile au survol ========== -->
+  <section class="pj-section tone-green" aria-labelledby="site-title">
+    <div class="tf-hair" style="right: -8%; top: -12%; width: clamp(220px, 30vw, 440px);" aria-hidden="true"></div>
+    <div class="wrap">
+      <h2 id="site-title" class="reveal" data-i18n="pages.touffe.siteTitle"></h2>
+      <p data-i18n="pages.touffe.siteText"></p>
+
+      <!-- Les écrans sont des liens doublons du bouton : cachés au clavier et aux lecteurs d'écran -->
+      <div class="site-preview">
+        <a class="sp-desktop reveal" href="team-touffe/index.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <span class="sp-bar"><i></i><i></i><i></i><b>Touffe — À poil les préjugés</b></span>
+          <img class="sp-screen" src="../assets/img/touffe/site-preview-desktop.webp" width="1200" height="6654" loading="lazy" alt="">
+        </a>
+        <a class="sp-phone reveal" href="team-touffe/index.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+          <img class="sp-screen" src="../assets/img/touffe/site-preview-mobile.webp" width="540" height="9548" loading="lazy" alt="">
+        </a>
+      </div>
+
+      <div class="sp-actions">
+        <a class="sp-cta" href="team-touffe/index.html" target="_blank" rel="noopener">
+          <span data-i18n="pages.touffe.siteCta"></span>
+          <span class="sp-arrow" aria-hidden="true">↗</span>
+          <span class="visually-hidden" data-i18n="ui.newTab"></span>
+        </a>
+        <p class="sp-hint" data-i18n="pages.touffe.siteHint"></p>
+      </div>
+    </div>
+  </section>
+
+  <a class="next to-brol" href="brol.html">
+    <span data-i18n="ui.next"></span>
+    <strong><img src="../assets/img/brol/logo-cream.svg" width="3780" height="1782" alt=".brol"><b aria-hidden="true">→</b></strong>
+  </a>
+
+</main>
+
+<script src="../js/content.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

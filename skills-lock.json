@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "advertising-career": {
+      "source": "mbfinotti/advertising-skills",
+      "sourceType": "github",
+      "skillPath": "skills/advertising-career/SKILL.md",
+      "computedHash": "6ac504382adb028c3b8fc4365a39429d79d3f56b8955828f1e5a1593cce65ff4"
+    },
+    "creative-portfolio-resume": {
+      "source": "paramchoudhary/resumeskills",
+      "sourceType": "github",
+      "skillPath": "skills/creative-portfolio-resume/SKILL.md",
+      "computedHash": "a606d15d5a5af4bbbbb8f06433a3b4d16d6e88f23fc3f755eeee201cd35c94e1"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "computedHash": "b146008599c31057cef1c145774cea5d5afb30e8f43fa802e47a4b461419aaaf"
+    },
+    "jury": {
+      "source": "juliobsz/skills",
+      "sourceType": "github",
+      "skillPath": "jury/SKILL.md",
+      "computedHash": "1c84752abb7a515b9ba42ffb1430bb115136dc5098dc4ba0ba8d2eaddbce6fe5"
+    }
+  }
+}
