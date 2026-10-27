@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Essai : textes croisés</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;700&family=Rubik:wght@900&display=swap" rel="stylesheet">
+  <style>
+    /* Page d'essai, hors site : rien ici n'est encore branché sur l'accueil. */
+    :root {
+      --cerise: #B00C28;
+      --rose: #FFB3C1;
+      --ink: #14213D;
+      --cream: #FFFDF7;
+      --gutter: clamp(16px, 3vw, 40px);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font: 500 1.0625rem/1.5 "Figtree", system-ui, sans-serif;
+      overflow-x: clip;
+    }
+
+    .note {
+      min-height: 70svh;
+      display: grid;
+      place-content: center;
+      gap: 0.5rem;
+      padding: 4rem var(--gutter);
+      max-width: 44rem;
+      margin: 0 auto;
+    }
+    .note h1 { font: 700 1.6rem/1.2 "Figtree", sans-serif; margin: 0; }
+    .note p { margin: 0; }
+
+    /* ---------- L'effet ---------- */
+    .cross {
+      height: 320svh;        /* la longueur de scroll pendant laquelle les lignes se rejoignent */
+      background: var(--cerise);
+    }
+    .cross-stage {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      overflow: hidden;
+      padding: var(--gutter);
+    }
+    /* Les lignes se répartissent sur toute la hauteur de l'écran */
+    .cross-lines {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: 0;
+      font-family: "Rubik", sans-serif;
+      font-weight: 900;
+      font-size: 12vw;       /* taille de départ ; chaque ligne est ensuite ajustée à la largeur */
+      line-height: 0.95;     /* assez d'air pour que les accents ne touchent pas la ligne du dessus */
+      text-transform: uppercase;
+      color: var(--rose);
+      text-align: center;
+    }
+    .cross-line {
+      display: flex;
+      justify-content: center;   /* reste centré même quand le texte, avant ajustement, déborde */
+      white-space: nowrap;
+      will-change: transform;
+    }
+    /* fit() étire chaque ligne en largeur pour qu'elle touche les deux bords */
+    .cross-text, .cross-row { display: inline-block; }
+    .cross-fit { transform-origin: center; }
+    /* La bande du milieu : couleurs inversées, d'un bord à l'autre de l'écran */
+    .cross-line.is-band {
+      margin-inline: calc(-1 * var(--gutter));
+      padding-block: 0.08em;
+      background: var(--rose);
+      color: var(--cerise);
+    }
+    /* Écran en hauteur : chaque ligne passe sur deux rangs pour rester grande */
+    @media (orientation: portrait) {
+      .cross-row { display: block; width: max-content; margin-inline: auto; }
+      .cross-space { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cross { height: auto; }
+      .cross-stage { position: relative; }
+      .cross-line { transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="note">
+    <h1>Essai : textes croisés</h1>
+    <p>Descendez : les lignes arrivent de la gauche et de la droite, puis se calent au centre.</p>
+  </header>
+
+  <section class="cross">
+    <div class="cross-stage">
+      <!-- Le nom au milieu, deux lignes au-dessus, deux en dessous -->
+      <p class="cross-lines">
+        <span class="cross-line" data-dir="-1"><span class="cross-text"><span class="cross-row">Direction</span><span class="cross-space"> </span><span class="cross-row">artistique</span></span></span>
+        <span class="cross-line" data-dir="1"><span class="cross-text"><span class="cross-row">Identité</span><span class="cross-space"> </span><span class="cross-row">visuelle</span></span></span>
+        <span class="cross-line is-band" data-dir="-1"><span class="cross-text"><span class="cross-row">Emilie</span><span class="cross-space"> </span><span class="cross-row">Deboeck</span></span></span>
+        <span class="cross-line" data-dir="1"><span class="cross-text"><span class="cross-row">Graphisme</span><span class="cross-space"> </span><span class="cross-row">& web</span></span></span>
+        <span class="cross-line" data-dir="-1"><span class="cross-text"><span class="cross-row">Concept</span><span class="cross-space"> </span><span class="cross-row">& stratégie</span></span></span>
+      </p>
+    </div>
+  </section>
+
+  <footer class="note">
+    <p>Fin de l'essai. Remontez pour rejouer.</p>
+  </footer>
+
+  <script>
+    // L'effet : chaque ligne part hors écran, à gauche ou à droite selon data-dir,
+    // et rejoint le centre en suivant le scroll. Les lignes démarrent en décalé.
+    const section = document.querySelector(".cross");
+    const stage = section.querySelector(".cross-stage");
+    const lines = [...section.querySelectorAll(".cross-line")];
+    const calm = matchMedia("(prefers-reduced-motion: reduce)");
+    const clamp = (v) => Math.min(1, Math.max(0, v));
+    const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+    const STAGGER = 0.08;  // écart de départ entre deux lignes
+    const TRAVEL = 0.45;   // part du scroll que met une ligne à arriver
+    const LINE_HEIGHT = 0.95; // même valeur que line-height de .cross-lines
+    const NAME_SCALE = 1.2; // le nom, un peu plus haut que les autres lignes
+    const BAND_PAD = 0.08;  // même valeur que padding-block de .is-band
+
+    // Les lettres remplissent toute la hauteur de l'écran, puis chaque ligne est
+    // étirée ou tassée en largeur pour toucher les deux bords, comme une affiche.
+    // Sur un écran en hauteur, chaque ligne passe sur deux rangs, ajustés un par un.
+    function fit() {
+      const style = getComputedStyle(stage);
+      const width = stage.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+      const height = stage.clientHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom);
+      const portrait = matchMedia("(orientation: portrait)").matches;
+      const rows = portrait ? 2 : 1;
+      const isBand = (line) => line.classList.contains("is-band");
+
+      const units = lines.reduce((sum, line) =>
+        sum + (isBand(line) ? NAME_SCALE * (rows * LINE_HEIGHT + 2 * BAND_PAD) : rows * LINE_HEIGHT), 0);
+      const size = height / units;
+
+      lines.forEach((line) => {
+        line.style.fontSize = `${isBand(line) ? size * NAME_SCALE : size}px`;
+        const targets = portrait ? [...line.querySelectorAll(".cross-row")] : [line.firstElementChild];
+        line.querySelectorAll(".cross-fit").forEach((el) => {
+          el.classList.remove("cross-fit");
+          el.style.transform = "";
+        });
+        targets.forEach((el) => {
+          el.classList.add("cross-fit");
+          el.style.transform = `scaleX(${width / el.offsetWidth})`;
+        });
+      });
+    }
+
+    function render() {
+      if (calm.matches) return;
+      const rect = section.getBoundingClientRect();
+      const progress = clamp(-rect.top / (section.offsetHeight - innerHeight));
+      lines.forEach((line, i) => {
+        const t = easeOut(clamp((progress - i * STAGGER) / TRAVEL));
+        line.style.transform = `translate3d(${(1 - t) * line.dataset.dir * 110}vw, 0, 0)`;
+      });
+    }
+
+    let ticking = false;
+    addEventListener("scroll", () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => { render(); ticking = false; });
+    }, { passive: true });
+    addEventListener("resize", () => { fit(); render(); });
+    calm.addEventListener("change", render);
+    fit();
+    render();
+    // Les lignes sont mesurées avec la police de secours tant que Rubik n'est pas chargée
+    document.fonts.ready.then(() => { fit(); render(); });
+  </script>
+</body>
+</html>

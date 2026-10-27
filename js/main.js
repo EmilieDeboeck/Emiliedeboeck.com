@@ -36,6 +36,10 @@
 
   const LOGO = "emilie<span>.</span>";
 
+  // Sous « Projets » : un lien par projet, dans l'ordre de l'index de l'accueil
+  const projectLinks = ["brol", "aline", "touffe"].map((key) => `
+          <li><a href="${root}projets/${key}.html"${page === key ? ' aria-current="page"' : ""}><strong data-i18n="work.${key}.name"></strong><span data-i18n="work.${key}.type"></span></a></li>`).join("");
+
   const header = `
 <a class="skip-link" href="#main" data-i18n="ui.skip"></a>
 <header class="site-header">
@@ -43,7 +47,11 @@
   <nav class="site-nav" data-i18n-attr="aria-label:ui.menu">
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" data-i18n="ui.menu"></button>
     <ul id="site-menu" class="menu">
-      <li><a href="${root}index.html#projets" data-i18n="ui.nav.work"></a></li>
+      <li class="has-sub">
+        <a href="${root}index.html#projets" data-i18n="ui.nav.work"></a>
+        <ul class="submenu">${projectLinks}
+        </ul>
+      </li>
       <li><a href="${root}index.html#a-propos" data-i18n="ui.nav.about"></a></li>
       <li><a href="${root}index.html#cv" data-i18n="ui.nav.skills"></a></li>
       <li><a href="${root}index.html#contact" data-i18n="ui.nav.contact"></a></li>
@@ -58,7 +66,6 @@
   const footer = `
 <footer class="site-footer">
   <p data-i18n="footer.made"></p>
-  ${page === "home" ? '<p data-i18n="footer.note"></p>' : ""}
   <a href="#top" data-i18n="ui.top"></a>
 </footer>`;
 
@@ -101,6 +108,32 @@
         place.textContent = where;
         li.append(w, title, place);
         return li;
+      }));
+    },
+    // Chaque entrée [début, fin] devient une ligne ; celle du milieu va dans la bande.
+    // Les directions alternent : une ligne arrive de la gauche, la suivante de la droite.
+    poster(el, items) {
+      const middle = Math.floor(items.length / 2);
+      el.replaceChildren(...items.map((parts, i) => {
+        const line = document.createElement("span");
+        line.className = i === middle ? "poster-line is-band" : "poster-line";
+        line.style.setProperty("--dir", i % 2 ? 1 : -1);
+        const text = document.createElement("span");
+        text.className = "poster-text";
+        parts.forEach((part, j) => {
+          if (j > 0) {
+            const space = document.createElement("span");
+            space.className = "poster-space";
+            space.textContent = " ";
+            text.append(space);
+          }
+          const row = document.createElement("span");
+          row.className = "poster-row";
+          row.textContent = part;
+          text.append(row);
+        });
+        line.append(text);
+        return line;
       }));
     }
   };
@@ -202,6 +235,8 @@
       span.textContent = part;
       return span;
     }));
+    // Le nombre de mots : un titre qui arrive de la gauche part de son dernier mot (voir style.css)
+    el.style.setProperty("--n", i);
   }
 
   /* ---------- Menu mobile ---------- */
@@ -295,12 +330,16 @@
       const box = el.getBoundingClientRect();
       if (box.bottom < 0 || box.top > vh) return;
       const words = el.querySelectorAll(".word");
-      const p = clamp01((vh * 0.85 - box.top) / (box.height + vh * 0.3)) * words.length;
+      // Accueil : tout est allumé dès que le haut du paragraphe atteint la moitié de l'écran
+      const p = (page === "home"
+        ? clamp01((vh * 0.95 - box.top) / (vh * 0.45))
+        : clamp01((vh * 0.85 - box.top) / (box.height + vh * 0.3))) * words.length;
       words.forEach((word, i) => setStyle(word, "opacity", (0.18 + 0.82 * clamp01(p - i)).toFixed(2)));
     });
   }
 
   // Les éléments de la liste arrivent de la droite en se redressant, chacun un peu après le précédent.
+  // Avec data-slide-in="alternate" (accueil), ils arrivent une fois de la gauche, une fois de la droite.
   // translate/rotate (et non transform) pour garder les rotations déjà posées en CSS.
   // L'angle de départ vient de --slide-rot (6deg par défaut) : une page projet peut le mettre à 0.
   // Il est lu une fois par liste (et relu au redimensionnement), pas à chaque image.
@@ -313,12 +352,133 @@
       const p = clamp01((vh - box.top) / (vh * 0.6));
       if (!slideRot.has(list)) slideRot.set(list, parseFloat(getComputedStyle(list).getPropertyValue("--slide-rot") || 6));
       const rot = slideRot.get(list);
+      const alternate = list.dataset.slideIn === "alternate";
       [...list.children].forEach((item, i) => {
         const local = easeOut(clamp01((p - i * 0.12) / 0.4));
+        const side = alternate && i % 2 === 0 ? -1 : 1;
         setStyle(item, "opacity", local.toFixed(2));
-        setStyle(item, "translate", `${((1 - local) * 100).toFixed(1)}% 0`);
+        setStyle(item, "translate", `${((1 - local) * 100 * side).toFixed(1)}% 0`);
         setStyle(item, "rotate", `${((1 - local) * rot).toFixed(2)}deg`);
       });
+    });
+  }
+
+  // Avancée d'une arrivée liée au scroll : 0 quand le bloc entre par le bas, 1 quand son haut atteint 30 % de l'écran
+  // (la section est alors entièrement visible, le bloc doit être posé).
+  // En bas de page, le bloc ne peut plus monter : l'arrivée se termine alors au plus tard quand le scroll s'arrête.
+  function arrival(box, vh) {
+    const lastTop = box.top - (scrollMax - window.scrollY);
+    const end = Math.max(vh * 0.3, lastTop);
+    return end >= vh ? 1 : clamp01((vh - box.top) / (vh - end));
+  }
+
+  // Même arrivée que les lignes de l'affiche : le bloc part hors écran (data-slide-from="left" ou "right")
+  // et rejoint sa place en suivant le scroll, pendant qu'il entre dans l'écran.
+  // translate (et non transform) pour garder la rotation de la photo posée en CSS.
+  function updateSlideFrom(vh) {
+    document.querySelectorAll("[data-slide-from]").forEach((el) => {
+      const box = el.getBoundingClientRect();
+      if (box.bottom < 0 || box.top > vh) return;
+      // Vitesse régulière, sur le même trajet que les titres : pas de départ en trombe
+      const local = arrival(box, vh);
+      const dir = el.dataset.slideFrom === "left" ? -1 : 1;
+      setStyle(el, "translate", `${((1 - local) * dir * 110).toFixed(2)}vw 0`);
+    });
+  }
+
+  // Titres de l'accueil : le titre entier part hors écran, du côté donné par --side (1 droite, -1 gauche, voir style.css),
+  // et rejoint sa place en suivant le scroll, comme une ligne de l'affiche. Les mots restent groupés.
+  const titleSide = new Map();
+
+  function updateTitles(vh) {
+    if (page !== "home") return;
+    document.querySelectorAll("h2.words-up").forEach((title) => {
+      const box = title.getBoundingClientRect();
+      if (box.bottom < 0 || box.top > vh) return;
+      if (!titleSide.has(title)) titleSide.set(title, parseFloat(getComputedStyle(title).getPropertyValue("--side")) || 1);
+      const side = titleSide.get(title);
+      // Le plus lent possible : le trajet dure tout le temps que le titre met à monter jusque sous l'en-tête,
+      // à vitesse régulière
+      const local = arrival(box, vh);
+      const shift = `${((1 - local) * side * 110).toFixed(2)}vw 0`;
+      // Sur les mots (et non le titre) : le titre a déjà sa rotation ou son apparition en CSS.
+      title.querySelectorAll(".word").forEach((word) => setStyle(word, "translate", shift));
+    });
+  }
+
+  // L'affiche : les lettres remplissent la hauteur de l'écran, chaque ligne est étirée ou tassée
+  // en largeur pour toucher les deux bords. Sur un écran en hauteur, chaque ligne passe sur deux rangs.
+  const poster = document.querySelector(".poster");
+  const POSTER_NAME_SCALE = 1.2; // le nom, un peu plus haut que les autres lignes
+
+  function fitPoster() {
+    if (!poster) return;
+    const stage = poster.querySelector(".poster-stage");
+    const lines = [...poster.querySelectorAll(".poster-line")];
+    const style = getComputedStyle(stage);
+    const width = stage.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+    // La hauteur du bloc des lignes, et non de la scène : la ligne de statut garde sa place en bas.
+    const height = poster.querySelector(".poster-lines").clientHeight;
+    const portrait = window.matchMedia("(orientation: portrait)").matches;
+    const rows = portrait ? 2 : 1;
+    const lh = parseFloat(getComputedStyle(poster).getPropertyValue("--poster-lh"));
+    const pad = parseFloat(getComputedStyle(poster).getPropertyValue("--poster-pad"));
+    const isBand = (line) => line.classList.contains("is-band");
+
+    const units = lines.reduce((sum, line) =>
+      sum + (isBand(line) ? POSTER_NAME_SCALE * (rows * lh + 2 * pad) : rows * lh), 0);
+    const size = height / units;
+
+    lines.forEach((line) => {
+      line.style.fontSize = `${isBand(line) ? size * POSTER_NAME_SCALE : size}px`;
+      line.querySelectorAll(".poster-fit").forEach((el) => {
+        el.classList.remove("poster-fit");
+        el.style.transform = "";
+      });
+      const targets = portrait ? [...line.querySelectorAll(".poster-row")] : [line.firstElementChild];
+      targets.forEach((el) => {
+        el.classList.add("poster-fit");
+        el.style.transform = `scaleX(${(width / el.offsetWidth).toFixed(4)})`;
+      });
+    });
+  }
+
+  // Les autres lignes que le nom partent hors écran, à gauche ou à droite, et rejoignent le centre
+  // en suivant le scroll, l'une après l'autre, pendant que la scène reste fixée.
+  const POSTER_STAGGER = 0.1;  // écart de départ entre deux lignes
+  const POSTER_TRAVEL = 0.6;   // part du scroll que met une ligne à arriver (la dernière finit à 90 %)
+
+  function updatePoster(vh) {
+    if (!poster) return;
+    const box = poster.getBoundingClientRect();
+    if (box.bottom < 0 || box.top > vh) return;
+    // Les lignes arrivent sur le premier écran de scroll ; le dernier demi-écran est une pause :
+    // l'affiche complète reste en place avant de remonter (voir la hauteur de .poster dans style.css).
+    const p = clamp01(-box.top / (box.height - vh * 1.5));
+    poster.querySelectorAll(".poster-line:not(.is-band)").forEach((line, i) => {
+      const local = easeOut(clamp01((p - i * POSTER_STAGGER) / POSTER_TRAVEL));
+      const dir = parseFloat(line.style.getPropertyValue("--dir"));
+      setStyle(line, "transform", `translate3d(${((1 - local) * dir * 110).toFixed(2)}vw, 0, 0)`);
+    });
+  }
+
+  // L'arrivée du nom (en CSS) part une fois Rubik chargée et les lignes ajustées :
+  // sinon on verrait glisser la police de secours, puis un saut.
+  // Si la police tarde (réseau lent, Google Fonts bloqué), le nom arrive quand même au bout de 1,5 s.
+  if (poster) {
+    const play = () => {
+      fitPoster();
+      poster.classList.add("is-playing");
+    };
+    document.addEventListener("langchange", fitPoster);
+    if (document.fonts) {
+      Promise.race([document.fonts.ready, new Promise((resolve) => setTimeout(resolve, 1500))]).then(play);
+      document.fonts.ready.then(fitPoster);
+    } else {
+      play();
+    }
+    poster.addEventListener("animationend", (event) => {
+      if (event.target.matches(".is-band")) poster.classList.add("is-done");
     });
   }
 
@@ -344,6 +504,9 @@
     updateParallax(vh);
     updateReading(vh);
     updateSlideIn(vh);
+    updateSlideFrom(vh);
+    updateTitles(vh);
+    updatePoster(vh);
   }
 
   // Pendant le glissé, les effets sont déjà recalculés dans l'image du glissé : inutile de le refaire.
@@ -357,6 +520,7 @@
   window.addEventListener("scroll", requestScrollFrame, { passive: true });
   window.addEventListener("resize", () => {
     slideRot.clear();
+    fitPoster();
     measureScroll();
     requestScrollFrame();
   });
@@ -374,7 +538,8 @@
     const glide = (now) => {
       const dt = last === null ? 1000 / 60 : Math.min(Math.max(now - last, 0), 50);
       last = now;
-      current += (target - current) * (1 - Math.exp(-dt / 150));
+      // Accueil : un glissé plus long, pour que les arrivées liées au scroll se déroulent sans hâte
+      current += (target - current) * (1 - Math.exp(-dt / (page === "home" ? 280 : 150)));
       if (Math.abs(target - current) < 0.3) {
         current = target;
         gliding = false;

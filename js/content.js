@@ -4,8 +4,8 @@ window.CONTENT = {
   fr: {
     meta: {
       home: {
-        title: "Emilie Deboeck — direction artistique, graphisme & web",
-        description: "Portfolio d'Emilie Deboeck, étudiante en master de publicité à l'IHECS (Bruxelles). Identité visuelle, direction artistique, graphisme et web. Stage de six mois dès février 2027."
+        title: "Emilie Deboeck — concept, direction artistique & identité visuelle",
+        description: "Portfolio d'Emilie Deboeck, étudiante en master de publicité à l'IHECS (Bruxelles). Concept, direction artistique, identité visuelle, graphisme et web. Stage dès février 2027."
       },
       touffe: {
         title: "Touffe — Emilie Deboeck",
@@ -38,35 +38,46 @@ window.CONTENT = {
       last: "Deboeck",
       role: "Direction artistique, identité visuelle, graphisme & web",
       sub: "Étudiante en master de publicité à l'IHECS, à Bruxelles. Je passe de l'idée à sa mise en forme : logos, chartes, typographies, affiches, écrans.",
-      status: "Je cherche un stage de six mois dès février 2027.",
+      status: "Je cherche un stage dès février 2027 (2 à 6 mois, conventionné).",
       contact: "Me contacter",
+      projects: "Voir ce que je fabrique",
       cv: "Mon CV (PDF)",
-      intro: "J'aime les idées. Encore plus quand elles prennent forme. Je touche au graphisme, à la direction artistique, au web et à tout ce qui me donne envie d'apprendre. Le reste, mes projets le disent mieux que moi."
+      intro: "Je suis curieuse de nature. Du genre à vouloir comprendre comment ça marche, même quand ce n'est pas mon domaine. Et souvent, une question en entraîne une autre. Puis une idée. Puis un projet que je n'avais absolument pas prévu de commencer.",
+      // L'affiche : une ligne par entrée, coupée en deux rangs sur un écran en hauteur. La ligne du milieu va dans la bande.
+      poster: [
+        ["Concept", "& stratégie"],
+        ["Direction", "artistique"],
+        ["Emilie", "Deboeck"],
+        ["Identité", "visuelle"],
+        ["Graphisme", "& web"]
+      ]
     },
 
     work: {
       label: "3 projets · 2025 – 2026",
-      title: "Quelques idées devenues concrètes",
-      view: "Voir le projet",
+      title: "Bon, et concrètement ?",
       touffe: {
         num: "03",
         name: "Touffe",
+        view: "Découvrir Touffe",
         type: "Campagne de sensibilisation",
         frame: "Bac 3 · 2025 · équipe de 9",
-        pitch: "Deux mots tirés au sort : « de l'herbe pour les jeunes mariés ». À neuf, on en a fait une campagne drôle et utile sur un vrai tabou : la pilosité dans le couple.",
+        pitch: "Une cible et un produit tirés au sort : « de l'herbe pour les jeunes mariés ». À 9, on a imaginé une campagne drôle et utile sur un vrai tabou : la pilosité dans le couple.",
         role: "Le logo, une typographie dessinée de A à Z, les illustrations et le site web."
       },
       aline: {
         num: "02",
         name: "aline",
+        view: "Découvrir aline",
         type: "Marque · app · campagne",
         frame: "Master · 2026 · client réel",
-        pitch: "Une marque et une app pour Court-Circuit. Le but : donner envie de sortir voir des concerts émergents en Wallonie-Bruxelles.",
+        pitch: "Une marque et une app pour l'ASBL Court-Circuit. Le but : donner envie de sortir voir des concerts émergents en Wallonie-Bruxelles.",
         role: "Toute l'identité visuelle et graphique. Le concept, on l'a construit en équipe."
       },
       brol: {
         num: "01",
         name: ".brol",
+        view: "Découvrir .brol",
         type: "Identité de marque · charte graphique",
         frame: "Master · 2026 · agence de 8 étudiant·es",
         pitch: "« Brol », c'est le bazar en bruxellois. Notre agence étudiante en a fait sa signature : du brouillon au résultat.",
@@ -86,22 +97,21 @@ window.CONTENT = {
 
     about: {
       label: "À propos",
-      title: "Curieuse de tout. Créative surtout.",
-      p1: "Je suis en dernière année de master en publicité à l'IHECS, à Bruxelles. J'ai besoin de comprendre d'abord : un public, un outil, la raison d'un choix graphique. Ensuite seulement, je fabrique.",
-      p2: "Chez .brol, l'agence fondée par huit étudiant·es de notre master, je m'occupe du graphisme et du web. Mais je mets aussi les mains dans le reste : brief, stratégie, création, production, sur de vrais comptes comme Actiris et Court-Circuit. Avant ça, j'ai passé un semestre Erasmus en publicité à Bordeaux.",
-      p3: "Je travaille par essais : je teste, je compare, je corrige, jusqu'à ce que ça tienne. Et j'aime confronter mes idées à celles des autres. C'est souvent là qu'elles deviennent bonnes.",
+      p1: "En dernière année de master en publicité à l'IHECS, à Bruxelles.",
+      p2: "Ce que j'aime dans la publicité, c'est qu'on ne fait jamais vraiment la même chose. Un jour, je réfléchis à une stratégie. Le lendemain, je travaille sur une identité visuelle ou je découvre comment construire un site web. J'aime pouvoir toucher à tout, sans devoir choisir une seule spécialité.",
+      p3: "Je suis assez débrouillarde et j'apprends beaucoup en expérimentant. Si je ne sais pas faire quelque chose, je cherche, j'essaie et je finis généralement par trouver. Et quand je peux partager tout ça avec une équipe, c'est encore mieux.",
       offTitle: "Quand je lâche Illustrator",
-      off: ["Tennis", "Course à pied", "Scouts", "Arts créatifs"],
+      off: ["Tennis", "Course à pied", "Scouts", "Bricolage"],
       photoAlt: "Portrait d'Emilie Deboeck en noir et blanc, pull en maille."
     },
 
     skills: {
       label: "CV",
-      title: "Ce que je sais faire",
+      title: "Compétences",
       doTitle: "Là où je suis utile",
-      do: ["Direction artistique", "Identité visuelle", "Création typographique", "Illustration", "Web & réseaux sociaux", "Concept & stratégie"],
+      do: ["Concept & stratégie", "Direction artistique", "Identité visuelle", "Création typographique", "Illustration", "Web & réseaux sociaux"],
       toolsTitle: "Mes outils",
-      tools: ["Illustrator", "Photoshop", "Premiere Pro", "Calligraphr", "Microsoft Office"],
+      tools: ["Illustrator", "Photoshop", "Figma", "Premiere Pro", "Canva", "Microsoft Office"],
       langTitle: "Langues",
       langs: ["Français : langue maternelle", "Anglais : courant", "Allemand : notions scolaires"],
       pathTitle: "Le chemin jusqu'ici",
@@ -118,12 +128,12 @@ window.CONTENT = {
     contact: {
       label: "Contact",
       title: "On en parle ?",
-      sub: "Je cherche un stage de six mois à partir de février 2027, dans une équipe créative qui me confie de vraies responsabilités et m'apprend plein de choses. Un e-mail suffit.",
+      sub: "À la recherche d'un stage à partir de février 2027, d'une durée de 2 à 6 mois, conventionné par l'IHECS. J'ai envie de rejoindre une équipe où je pourrai apprendre, participer à de vrais projets et apporter ma touche personnelle. Si mon profil vous intéresse, on en discute ?",
       email: "emilie.deboeck@icloud.com",
       copy: "Copier l'adresse",
       copied: "Adresse copiée",
       linkedin: "Me retrouver sur LinkedIn",
-      note: "À très vite !"
+      photoAlt: "Portrait d'Emilie Deboeck en noir et blanc, de trois quarts, pull en maille."
     },
 
     game: {
@@ -140,8 +150,7 @@ window.CONTENT = {
     },
 
     footer: {
-      made: "© 2026 Emilie Deboeck · Bruxelles",
-      note: "Fait avec beaucoup d'essais, quelques retours en arrière et pas mal de curiosité."
+      made: "© 2026 Emilie Deboeck · Bruxelles"
     },
 
     pages: {
@@ -322,8 +331,8 @@ window.CONTENT = {
   en: {
     meta: {
       home: {
-        title: "Emilie Deboeck — art direction, graphic design & web",
-        description: "Portfolio of Emilie Deboeck, Master's student in Advertising at IHECS (Brussels). Visual identity, art direction, graphic design and web. Looking for a six-month internship from February 2027."
+        title: "Emilie Deboeck — concept, art direction & visual identity",
+        description: "Portfolio of Emilie Deboeck, Master's student in Advertising at IHECS (Brussels). Concept, art direction, visual identity, graphic design and web. Looking for an internship from February 2027."
       },
       touffe: {
         title: "Touffe — Emilie Deboeck",
@@ -356,35 +365,45 @@ window.CONTENT = {
       last: "Deboeck",
       role: "Art direction, visual identity, graphic design & web",
       sub: "Master's student in Advertising at IHECS, in Brussels. I take ideas all the way to their final form: logos, brand guidelines, typefaces, posters, screens.",
-      status: "Looking for a six-month internship from February 2027.",
+      status: "Looking for an internship from February 2027 (2 to 6 months, with an internship agreement).",
       contact: "Get in touch",
+      projects: "See what I make",
       cv: "My resume (PDF)",
-      intro: "I like ideas. Even more when they take shape. I dabble in graphic design, art direction, the web and anything that makes me want to learn. The rest? My projects say it better than I can."
+      intro: "I'm curious by nature. The kind of person who wants to know how things work, even when it's not my field. And one question usually leads to another. Then an idea. Then a project I had absolutely no plan to start.",
+      poster: [
+        ["Concept", "& strategy"],
+        ["Art", "direction"],
+        ["Emilie", "Deboeck"],
+        ["Visual", "identity"],
+        ["Graphic design", "& web"]
+      ]
     },
 
     work: {
       label: "3 projects · 2025 – 2026",
-      title: "A few ideas made real",
-      view: "View project",
+      title: "Right, so what does that look like?",
       touffe: {
         num: "03",
         name: "Touffe",
+        view: "Discover Touffe",
         type: "Awareness campaign",
         frame: "Bachelor 3 · 2025 · team of 9",
-        pitch: "Two randomly drawn words: “grass for newlyweds”. The nine of us turned them into a funny, useful campaign about a real taboo: body hair in relationships.",
+        pitch: "A randomly drawn target and product: “grass for newlyweds”. The 9 of us came up with a funny, useful campaign about a real taboo: body hair in relationships.",
         role: "The logo, a typeface drawn from scratch, the illustrations and the website."
       },
       aline: {
         num: "02",
         name: "aline",
+        view: "Discover aline",
         type: "Brand · app · campaign",
         frame: "Master · 2026 · real client",
-        pitch: "A brand and an app for Court-Circuit. The goal: make people want to go out and see emerging artists live across Wallonia-Brussels.",
+        pitch: "A brand and an app for Court-Circuit, a non-profit. The goal: make people want to go out and see emerging artists live across Wallonia-Brussels.",
         role: "The whole visual and graphic identity. The concept was a team effort."
       },
       brol: {
         num: "01",
         name: ".brol",
+        view: "Discover .brol",
         type: "Brand identity · guidelines",
         frame: "Master · 2026 · agency of 8 students",
         pitch: "In Brussels slang, a “brol” is a mess. Our student agency made it its signature: from rough draft to result.",
@@ -404,22 +423,21 @@ window.CONTENT = {
 
     about: {
       label: "About",
-      title: "Curious about everything. Creative above all.",
-      p1: "I'm in the final year of my Master's in Advertising at IHECS, in Brussels. I need to understand things first: an audience, a tool, the reason behind a design choice. Only then do I start making.",
-      p2: "At .brol, the agency founded by eight students from our Master's, I handle graphic design and the web. But I get my hands into the rest too: brief, strategy, creative, production, on real accounts such as Actiris and Court-Circuit. Before that, I spent an Erasmus semester studying advertising in Bordeaux.",
-      p3: "I work by trial and error: I test, I compare, I fix, until it holds up. And I like putting my ideas up against other people's. That's often where they get good.",
+      p1: "In the final year of a Master's in Advertising at IHECS, in Brussels.",
+      p2: "What I love about advertising is that you never really do the same thing twice. One day I'm working on a strategy. The next, I'm on a visual identity, or figuring out how to build a website. I like being able to try a bit of everything, without having to pick a single specialty.",
+      p3: "I'm quite resourceful and I learn a lot by experimenting. If I don't know how to do something, I look it up, I try, and I usually get there. And when I can share all that with a team, even better.",
       offTitle: "When I put Illustrator down",
-      off: ["Tennis", "Running", "Scouts", "Arts & crafts"],
+      off: ["Tennis", "Running", "Scouts", "DIY"],
       photoAlt: "Black and white portrait of Emilie Deboeck in a knit sweater."
     },
 
     skills: {
       label: "Resume",
-      title: "What I can do",
+      title: "Skills",
       doTitle: "Where I'm useful",
-      do: ["Art direction", "Visual identity", "Type design", "Illustration", "Web & social media", "Concept & strategy"],
+      do: ["Concept & strategy", "Art direction", "Visual identity", "Type design", "Illustration", "Web & social media"],
       toolsTitle: "My tools",
-      tools: ["Illustrator", "Photoshop", "Premiere Pro", "Calligraphr", "Microsoft Office"],
+      tools: ["Illustrator", "Photoshop", "Figma", "Premiere Pro", "Canva", "Microsoft Office"],
       langTitle: "Languages",
       langs: ["French: native", "English: fluent", "German: school level"],
       pathTitle: "How I got here",
@@ -436,12 +454,12 @@ window.CONTENT = {
     contact: {
       label: "Contact",
       title: "Let's talk?",
-      sub: "I'm looking for a six-month internship from February 2027, in a creative team that gives me real responsibility and plenty to learn. An email is all it takes.",
+      sub: "Looking for an internship from February 2027, lasting 2 to 6 months, under an IHECS internship agreement. I'd like to join a team where I can learn, work on real projects and bring my own touch. If my profile interests you, shall we talk?",
       email: "emilie.deboeck@icloud.com",
       copy: "Copy address",
       copied: "Address copied",
       linkedin: "Find me on LinkedIn",
-      note: "Talk soon!"
+      photoAlt: "Black and white three-quarter portrait of Emilie Deboeck in a knit sweater."
     },
 
     game: {
@@ -458,8 +476,7 @@ window.CONTENT = {
     },
 
     footer: {
-      made: "© 2026 Emilie Deboeck · Brussels",
-      note: "Made with lots of trial runs, a few U-turns and plenty of curiosity."
+      made: "© 2026 Emilie Deboeck · Brussels"
     },
 
     pages: {

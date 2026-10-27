@@ -3,38 +3,37 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Emilie Deboeck — direction artistique, graphisme & web</title>
-  <meta name="description" content="">
-  <meta property="og:title" content="Emilie Deboeck — direction artistique, graphisme & web">
-  <meta property="og:image" content="assets/img/touffe/affiche-touffe-1600.jpg">
+  <title>Emilie Deboeck — concept, direction artistique & identité visuelle</title>
+  <!-- Écrits ici aussi (main.js les remplace selon la langue) : LinkedIn et les réseaux ne lisent pas le JavaScript -->
+  <meta name="description" content="Portfolio d'Emilie Deboeck, étudiante en master de publicité à l'IHECS (Bruxelles). Concept, direction artistique, identité visuelle, graphisme et web. Stage dès février 2027.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Emilie Deboeck — concept, direction artistique & identité visuelle">
+  <meta property="og:description" content="Étudiante en master de publicité à l'IHECS (Bruxelles). Stage dès février 2027.">
+  <meta property="og:url" content="https://emiliedeboeck.com/">
+  <meta property="og:image" content="https://emiliedeboeck.com/assets/img/touffe/affiche-touffe-1600.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Caveat : l'écriture à la main du post-it -->
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
-  <!-- Archivo étroit, seulement pour « & » et « @ » qui manquent à Emilie Display -->
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62,900&text=%26%40&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <!-- Rubik Black : l'affiche du haut et tous les titres de l'accueil -->
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="pg-home" data-page="home" data-root="">
 
 <main id="main">
 
-  <!-- ========== HERO : le nom à gauche ; à droite, qui, quoi, ce qu'elle cherche, comment la joindre ========== -->
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="wrap hero-grid">
-      <h1 class="hero-name" id="hero-title">
-        <span data-i18n="hero.first"></span>
-        <span data-i18n="hero.last"></span>
-      </h1>
-      <div class="hero-text">
-        <p class="hero-role" data-i18n="hero.role"></p>
-        <p class="hero-sub" data-i18n="hero.sub"></p>
-        <p class="hero-status"><span class="dot" aria-hidden="true"></span><span data-i18n="hero.status"></span></p>
-        <div class="hero-actions">
-          <a class="hero-btn hero-btn-solid" href="#contact" data-i18n="hero.contact"></a>
-          <a class="hero-btn" href="assets/docs/cv-emilie-deboeck.pdf" download data-i18n="hero.cv"></a>
-        </div>
+  <!-- ========== AFFICHE : en haut de page, les compétences arrivent de gauche et de droite, le nom au centre ========== -->
+  <section class="poster" aria-labelledby="hero-title">
+    <h1 class="visually-hidden" id="hero-title"><span data-i18n="hero.first"></span> <span data-i18n="hero.last"></span></h1>
+    <div class="poster-stage">
+      <p class="poster-lines" data-render="poster" data-src="hero.poster"></p>
+      <!-- Dès le premier écran : ce qu'Emilie cherche, et les deux chemins utiles -->
+      <div class="poster-status">
+        <p data-i18n="hero.status"></p>
+        <a href="#projets" data-i18n="hero.projects"></a>
+        <a href="#contact" data-i18n="hero.contact"></a>
       </div>
     </div>
   </section>
@@ -45,19 +44,19 @@
   </div>
 
   <!-- ========== PROJETS ========== -->
-  <section class="section work" id="projets" aria-labelledby="work-title">
+  <section class="section work is-cerise" id="projets" aria-labelledby="work-title">
     <div class="wrap">
-      <!-- Index : une affiche à gauche, les noms des projets à droite sur la bande jaune -->
+      <!-- Index : une affiche à gauche, les logos des projets à droite sur la bande rose -->
       <div class="work-index">
         <div class="work-index-media" data-center aria-hidden="true">
-          <img class="is-active" src="assets/img/brol/affiche3-800.jpg" width="800" height="1043" loading="lazy" alt="">
-          <img src="assets/img/aline/affiche-800.jpg" width="566" height="800" loading="lazy" alt="">
-          <img src="assets/img/touffe/affiche-touffe-800.jpg" width="565" height="800" loading="lazy" alt="">
+          <img class="is-active" src="assets/img/brol/affiche3-800.webp" srcset="assets/img/brol/affiche3-480.webp 480w, assets/img/brol/affiche3-800.webp 800w" sizes="(min-width: 761px) 380px, 62vw" width="800" height="1043" loading="lazy" alt="">
+          <img src="assets/img/aline/affiche-800.webp" width="566" height="800" loading="lazy" alt="">
+          <img src="assets/img/touffe/affiche-touffe-800.webp" srcset="assets/img/touffe/affiche-touffe-480.webp 480w, assets/img/touffe/affiche-touffe-800.webp 800w" sizes="(min-width: 761px) 380px, 62vw" width="565" height="800" loading="lazy" alt="">
         </div>
         <div class="work-index-panel" data-center>
           <span class="label" data-i18n="work.label"></span>
           <h2 id="work-title" class="reveal" data-i18n="work.title"></h2>
-          <ul class="work-index-list" data-slide-in>
+          <ul class="work-index-list" data-slide-in="alternate">
             <li><a href="projets/brol.html" data-show="0"><span data-i18n="work.brol.num"></span> <strong><img src="assets/img/brol/wordmark.svg" width="3780" height="1512" alt=".brol"></strong> <em data-i18n="work.brol.type"></em></a></li>
             <li><a href="projets/aline.html" data-show="1"><span data-i18n="work.aline.num"></span> <strong><img src="assets/img/aline/wordmark.svg" width="3492" height="1188" alt="aline"></strong> <em data-i18n="work.aline.type"></em></a></li>
             <li><a href="projets/touffe.html" data-show="2"><span data-i18n="work.touffe.num"></span> <strong><img src="assets/img/touffe/logo.svg" width="4096" height="1210" alt="Touffe"></strong> <em data-i18n="work.touffe.type"></em></a></li>
@@ -67,22 +66,22 @@
 
       <ol class="stack">
         <!-- .brol -->
-        <li class="card brol on-dark" style="--i: 0;">
+        <li class="card brol" style="--i: 0;">
           <div class="card-text">
             <span class="card-num" data-i18n="work.brol.num"></span>
-            <h3 class="card-name reveal"><img src="assets/img/brol/logo-cream.svg" width="3780" height="1782" alt=".brol"></h3>
+            <h3 class="card-name reveal"><img src="assets/img/brol/logo.svg" width="3780" height="1782" alt=".brol"></h3>
             <ul class="card-tags">
               <li data-i18n="work.brol.type"></li>
               <li data-i18n="work.brol.frame"></li>
             </ul>
             <p class="card-pitch" data-i18n="work.brol.pitch"></p>
             <p class="card-role"><span class="card-role-label" data-i18n="pages.labels.role"></span> <span data-i18n="work.brol.role"></span></p>
-            <a class="card-link" href="projets/brol.html"><span data-i18n="work.view"></span></a>
+            <a class="card-link" href="projets/brol.html"><span data-i18n="work.brol.view"></span></a>
           </div>
           <div class="card-media">
-            <img class="m1" src="assets/img/brol/affiche1-800.jpg" width="800" height="1313" loading="lazy" alt="" data-i18n-attr="alt:work.alt.brolPoster1">
-            <img class="m2" src="assets/img/brol/affiche3-800.jpg" width="800" height="1043" loading="lazy" alt="" data-i18n-attr="alt:work.alt.brolPoster3">
-            <img class="m3" src="assets/img/brol/affiche2-800.jpg" width="800" height="1663" loading="lazy" alt="" data-i18n-attr="alt:work.alt.brolPoster2">
+            <img class="m1" src="assets/img/brol/affiche1-800.webp" srcset="assets/img/brol/affiche1-480.webp 480w, assets/img/brol/affiche1-800.webp 800w" sizes="(min-width: 861px) 24vw, 44vw" width="800" height="1313" loading="lazy" alt="" data-i18n-attr="alt:work.alt.brolPoster1">
+            <img class="m2" src="assets/img/brol/affiche3-800.webp" srcset="assets/img/brol/affiche3-480.webp 480w, assets/img/brol/affiche3-800.webp 800w" sizes="(min-width: 861px) 24vw, 44vw" width="800" height="1043" loading="lazy" alt="" data-i18n-attr="alt:work.alt.brolPoster3">
+            <img class="m3" src="assets/img/brol/affiche2-800.webp" srcset="assets/img/brol/affiche2-480.webp 480w, assets/img/brol/affiche2-800.webp 800w" sizes="(min-width: 861px) 24vw, 44vw" width="800" height="1663" loading="lazy" alt="" data-i18n-attr="alt:work.alt.brolPoster2">
           </div>
         </li>
 
@@ -97,10 +96,10 @@
             </ul>
             <p class="card-pitch" data-i18n="work.aline.pitch"></p>
             <p class="card-role"><span class="card-role-label" data-i18n="pages.labels.role"></span> <span data-i18n="work.aline.role"></span></p>
-            <a class="card-link" href="projets/aline.html"><span data-i18n="work.view"></span></a>
+            <a class="card-link" href="projets/aline.html"><span data-i18n="work.aline.view"></span></a>
           </div>
           <div class="card-media">
-            <img class="m1" src="assets/img/aline/affiche-800.jpg" width="566" height="800" loading="lazy" alt="" data-i18n-attr="alt:work.alt.alinePoster">
+            <img class="m1" src="assets/img/aline/affiche-800.webp" width="566" height="800" loading="lazy" alt="" data-i18n-attr="alt:work.alt.alinePoster">
             <img class="m2" src="assets/img/aline/ecrans-trio-855.webp" srcset="assets/img/aline/ecrans-trio-855.webp 855w, assets/img/aline/ecrans-trio-1710.webp 1710w" sizes="(min-width: 900px) 40vw, 70vw" width="855" height="529" loading="lazy" alt="" data-i18n-attr="alt:work.alt.alineScreens">
           </div>
         </li>
@@ -116,22 +115,22 @@
             </ul>
             <p class="card-pitch" data-i18n="work.touffe.pitch"></p>
             <p class="card-role"><span class="card-role-label" data-i18n="pages.labels.role"></span> <span data-i18n="work.touffe.role"></span></p>
-            <a class="card-link" href="projets/touffe.html"><span data-i18n="work.view"></span></a>
+            <a class="card-link" href="projets/touffe.html"><span data-i18n="work.touffe.view"></span></a>
           </div>
           <div class="card-media">
-            <img class="m1" src="assets/img/touffe/affiche-pelouse-800.jpg" width="565" height="800" loading="lazy" alt="" data-i18n-attr="alt:work.alt.touffePoster2">
-            <img class="m2" src="assets/img/touffe/affiche-touffe-800.jpg" width="565" height="800" loading="lazy" alt="" data-i18n-attr="alt:work.alt.touffePoster">
-            <img class="m3" src="assets/img/touffe/affiche-paix-800.jpg" width="565" height="800" loading="lazy" alt="" data-i18n-attr="alt:work.alt.touffePoster3">
+            <img class="m1" src="assets/img/touffe/affiche-pelouse-800.webp" srcset="assets/img/touffe/affiche-pelouse-480.webp 480w, assets/img/touffe/affiche-pelouse-800.webp 800w" sizes="(min-width: 861px) 24vw, 44vw" width="565" height="800" loading="lazy" alt="" data-i18n-attr="alt:work.alt.touffePoster2">
+            <img class="m2" src="assets/img/touffe/affiche-touffe-800.webp" srcset="assets/img/touffe/affiche-touffe-480.webp 480w, assets/img/touffe/affiche-touffe-800.webp 800w" sizes="(min-width: 861px) 24vw, 44vw" width="565" height="800" loading="lazy" alt="" data-i18n-attr="alt:work.alt.touffePoster">
+            <img class="m3" src="assets/img/touffe/affiche-paix-800.webp" srcset="assets/img/touffe/affiche-paix-480.webp 480w, assets/img/touffe/affiche-paix-800.webp 800w" sizes="(min-width: 861px) 24vw, 44vw" width="565" height="800" loading="lazy" alt="" data-i18n-attr="alt:work.alt.touffePoster3">
           </div>
         </li>
       </ol>
     </div>
   </section>
 
-  <!-- ========== À PROPOS : un papier menthe, le portrait collé par-dessus ========== -->
-  <section class="section about on-dark" id="a-propos" aria-labelledby="about-title">
+  <!-- ========== À PROPOS : un papier crème, le portrait collé par-dessus ========== -->
+  <section class="section about" id="a-propos" aria-labelledby="about-title">
     <div class="wrap about-grid">
-      <div class="about-paper" data-center>
+      <div class="about-paper" data-center data-slide-from="left">
         <h2 id="about-title" class="reveal" data-i18n="about.label"></h2>
         <p class="about-lead" data-i18n="about.p1"></p>
         <p data-i18n="about.p2"></p>
@@ -140,26 +139,24 @@
         <ul class="chips" data-render="list" data-src="about.off"></ul>
       </div>
 
-      <figure class="about-collage reveal" data-center>
+      <figure class="about-collage" data-center data-slide-from="right">
         <span class="collage-photo"><img src="assets/img/emilie-1200.jpg" srcset="assets/img/emilie-600.jpg 400w, assets/img/emilie-1200.jpg 800w" sizes="(min-width: 860px) 420px, 78vw" width="800" height="1200" loading="lazy" alt="" data-i18n-attr="alt:about.photoAlt"></span>
-        <svg class="doodle-arrow" viewBox="0 0 180 120" aria-hidden="true"><path pathLength="1" d="M8 112 C 46 104, 74 86, 96 62 S 136 22, 168 14"/><path pathLength="1" d="M142 8 L170 13 L154 38"/></svg>
-        <p class="note note-salmon" data-i18n="about.title"></p>
       </figure>
     </div>
   </section>
 
   <!-- ========== CV ========== -->
-  <section class="section skills" id="cv" aria-labelledby="skills-title">
+  <section class="section skills is-cerise" id="cv" aria-labelledby="skills-title">
     <div class="wrap">
       <div class="section-head" data-center>
-        <span class="label" data-i18n="skills.label" style="color: var(--red);"></span>
+        <span class="label" data-i18n="skills.label"></span>
         <h2 id="skills-title" class="reveal" data-i18n="skills.title"></h2>
       </div>
 
       <div class="skills-grid" data-center>
         <div class="reveal">
           <h3 data-i18n="skills.doTitle"></h3>
-          <ul class="big-list" data-slide-in data-render="list" data-src="skills.do"></ul>
+          <ul class="chips" data-render="list" data-src="skills.do"></ul>
         </div>
         <div class="reveal" style="--reveal-delay: 0.1s; --reveal-rot: -2deg;">
           <h3 data-i18n="skills.toolsTitle"></h3>
@@ -183,7 +180,7 @@
     </div>
   </section>
 
-  <!-- ========== CONTACT : le même collage que le hero, le titre penché, une affiche posée de biais, un post-it ========== -->
+  <!-- ========== CONTACT : le titre penché, un portrait posé de biais ========== -->
   <section class="section contact" id="contact" aria-labelledby="contact-title">
     <div class="wrap contact-grid" data-center>
       <div class="contact-text">
@@ -201,8 +198,7 @@
       </div>
 
       <figure class="contact-collage reveal">
-        <span class="collage-photo"><img src="assets/img/brol/affiche_mur-1600.jpg" srcset="assets/img/brol/affiche_mur-800.jpg 800w, assets/img/brol/affiche_mur-1600.jpg 1100w" sizes="(min-width: 860px) 36vw, 80vw" width="1100" height="1141" loading="lazy" alt=""></span>
-        <p class="note note-salmon" data-i18n="contact.note"></p>
+        <span class="collage-photo"><img src="assets/img/emilie-contact-1200.jpg" srcset="assets/img/emilie-contact-600.jpg 600w, assets/img/emilie-contact-1200.jpg 1200w" sizes="(min-width: 860px) 400px, 78vw" width="1200" height="1800" loading="lazy" alt="" data-i18n-attr="alt:contact.photoAlt"></span>
       </figure>
     </div>
   </section>

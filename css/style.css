@@ -31,6 +31,7 @@
   --brol-red: #C33723;
   --brol-green: #0E3B2E;
   --brol-cream: #F5F1EC;
+  --brol-blue: #CDE7FF;
 
   /* Polices */
   /* Archivo étroit ne fournit que « & » et « @ », absents d'Emilie Display */
@@ -77,15 +78,23 @@
   --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
 }
 
-/* Accueil : palette « Ciel et cerise ». Les pages projets gardent celle de :root. */
+/* Accueil : la DA de l'affiche du haut, quatre couleurs seulement. Les pages projets gardent celle de :root.
+   Les anciens noms (--blue, --yellow…) sont gardés parce que le CSS partagé les utilise. */
 .pg-home {
-  --blue: #A3DAF8;    /* ciel : fond du hero et d'« À propos » */
-  --yellow: #B00C28;  /* cerise : nom et rôle du hero */
-  --red: #1F2F8F;     /* accent : point du logo, frise, bouton du CV */
+  --rose: #FFB3C1;
+  --cerise: #B00C28;
   --cream: #FFFDF7;
   --ink: #14213D;
-  --mint: #FFE29A;    /* papier d'« À propos » */
-  --salmon: #FFB3C1;  /* post-it */
+  --blue: var(--rose);     /* fond des sections roses */
+  --yellow: var(--cerise); /* fond des sections cerise, grands titres sur le rose */
+  --red: var(--cerise);    /* accents : point du logo, frise, focus */
+  --mint: var(--cream);    /* papier d'« À propos » */
+  --salmon: var(--rose);   /* lettres et bande de l'affiche */
+  --f-poster: "Rubik", var(--f-body);  /* tous les titres de l'accueil */
+  --ease-poster: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Coins légèrement adoucis, comme ceux de Rubik : petit pour les étiquettes et boutons, moyen pour les blocs */
+  --round-s: 6px;
+  --round-m: 14px;
 }
 
 /* ---------- Base ---------- */
@@ -226,6 +235,58 @@ h2, h3 { font-family: var(--f-display); font-weight: 400; line-height: 1; letter
 }
 .menu a:hover { background: var(--yellow); }
 
+/* Sous-menu des projets : s'ouvre au survol de « Projets », et au clavier dès que le focus y entre */
+.has-sub { position: relative; }
+.has-sub > a::after {
+  content: "";
+  display: inline-block;
+  margin-left: 0.4rem;
+  border: 4px solid transparent;
+  border-top: 5px solid currentColor;
+  border-bottom: 0;
+  vertical-align: middle;
+  transition: transform 0.25s ease;
+}
+.has-sub:hover > a::after,
+.has-sub:focus-within > a::after { transform: rotate(180deg); }
+.submenu {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  left: 50%;
+  z-index: 2;
+  display: grid;
+  gap: 0.15rem;
+  width: max-content;
+  min-width: 15rem;
+  padding: 0.5rem;
+  background: var(--cream);
+  color: var(--ink);   /* en encre partout : l'en-tête d'une page projet peut avoir un texte clair */
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-soft);
+  opacity: 0;
+  visibility: hidden;
+  translate: -50% -6px;
+  transition: opacity 0.2s ease, translate 0.3s var(--ease-out), visibility 0s 0.3s;
+}
+/* Pont invisible entre le lien et la liste : la souris ne la perd pas en descendant */
+.submenu::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 0.8rem; }
+.has-sub:hover .submenu,
+.has-sub:focus-within .submenu {
+  opacity: 1;
+  visibility: visible;
+  translate: -50% 0;
+  transition: opacity 0.2s ease, translate 0.3s var(--ease-out);
+}
+.submenu a { display: grid; gap: 0.1rem; padding: 0.6rem 1rem; border-radius: 16px; }
+/* Spécificité renforcée : les styles de menu des pages projets ne s'appliquent pas à la liste */
+.site-header .site-nav .submenu a { font-family: var(--f-body); text-transform: none; letter-spacing: 0; }
+@media (min-width: 761px) {
+  .site-header .site-nav .submenu a:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); color: var(--ink); }
+}
+.submenu strong { font-weight: 700; }
+.submenu span { font-size: var(--fs-small); font-weight: 500; opacity: 0.75; }
+.submenu a[aria-current="page"] strong { text-decoration: underline 2px; text-underline-offset: 4px; }
+
 .menu-toggle {
   display: none;
   min-height: 44px;
@@ -288,78 +349,31 @@ h2, h3 { font-family: var(--f-display); font-weight: 400; line-height: 1; letter
   .menu.is-open li:nth-child(4) { transition-delay: 0.3s; }
   .menu a:hover, .is-over-hero .menu a:hover { background: var(--yellow); color: var(--ink); }
   .menu :focus-visible { outline-color: var(--yellow); }
-}
-
-/* ---------- Accueil : hero ----------
-   Le nom en grand à gauche ; à droite, le rôle, une phrase, la disponibilité et deux boutons arrondis. */
-
-.hero {
-  position: relative;
-  margin-top: calc(-1 * (var(--header-h) + 12px));
-  padding: calc(var(--header-h) + 12px + var(--space-5)) 0 var(--space-5);
-  background: var(--blue);
-  color: var(--cream);
-  overflow: hidden;
-}
-
-.hero-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: end; gap: var(--space-4) var(--gutter); }
-
-.hero-name {
-  grid-column: 1 / 7;
-  font-family: var(--f-display);
-  font-weight: 400;
-  font-size: clamp(3.4rem, 10vw, 9.5rem);
-  line-height: 0.86;
-  letter-spacing: 0.005em;
-  text-transform: uppercase;
-  color: var(--yellow);
-}
-.hero-name span { display: block; }
-
-.hero-text { grid-column: 7 / 13; justify-self: end; display: grid; gap: 0.9rem; max-width: 37rem; }
-.hero-role { font-size: clamp(1.15rem, 1.6vw, 1.4rem); font-weight: 600; line-height: 1.3; }
-.hero-sub { color: #34495F; }
-.hero-status { display: flex; align-items: center; gap: 0.65rem; font-weight: 600; }
-.hero-status .dot { flex: none; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 0 4px rgb(176 12 40 / 0.2); }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.4rem; }
-
-.hero-btn {
-  display: inline-flex;
-  align-items: center;
-  min-height: 48px;
-  padding: 0 1.4rem;
-  border: 1.5px solid rgb(20 33 61 / 0.4);
-  border-radius: 999px;
-  color: var(--ink);
-  font-weight: 600;
-  text-decoration: none;
-  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
-}
-.hero-btn:hover { border-color: var(--ink); }
-.hero-btn-solid { background: var(--ink); border-color: var(--ink); color: var(--cream); }
-.hero-btn-solid:hover { background: var(--yellow); border-color: var(--yellow); }
-
-@media (max-width: 860px) {
-  .hero-name, .hero-text { grid-column: 1 / -1; justify-self: start; }
+  /* Dans le panneau, les projets sont toujours visibles sous « Projets », en plus petit */
+  .has-sub > a::after { display: none; }
+  .submenu,
+  .has-sub:hover .submenu,
+  .has-sub:focus-within .submenu {
+    position: static;
+    width: auto;
+    min-width: 0;
+    padding: 0 0 0.4rem 1rem;
+    background: none;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    translate: none;
+  }
+  .submenu::before { display: none; }
+  /* Les couleurs restent celles du panneau de chaque page */
+  .site-header .site-nav .submenu a { padding: 0.35rem 1rem; font-size: 1.1rem; line-height: 1.3; }
+  .submenu span { display: none; }
 }
 
 /* Photo posée de biais, bords nets et ombre douce */
 .collage-photo { display: block; box-shadow: 0 10px 22px rgb(0 0 0 / 0.25); }
 .collage-photo img { width: 100%; }
 
-/* Post-it écrit à la main */
-.note {
-  position: absolute;
-  z-index: 4;
-  max-width: 8.5em;
-  padding: 0.85rem 1.1rem 1.1rem;
-  background: var(--yellow);
-  color: var(--ink);
-  font: 700 clamp(1.5rem, 2.3vw, 2.1rem) / 0.95 "Caveat", "Bradley Hand", cursive;
-  box-shadow: 0 12px 22px rgb(0 0 0 / 0.28);
-  transform: rotate(-7deg);
-}
-.note-salmon { background: var(--salmon); transform: rotate(6deg); }
 
 
 /* Le mouvement des lettres est réglable par page (--letter-*) : chaque projet garde le sien */
@@ -415,6 +429,103 @@ h2, h3 { font-family: var(--f-display); font-weight: 400; line-height: 1; letter
   font-weight: 600;
   line-height: 1.3;
   text-wrap: balance;
+}
+
+/* ---------- Affiche des compétences (accueil) ---------- */
+/* Le haut de l'accueil : au chargement, la bande du nom arrive seule (.is-playing, lancé par main.js
+   une fois Rubik chargée). Puis, pendant que la scène reste fixée à l'écran, les autres lignes
+   arrivent de gauche et de droite au fil du scroll (main.js).
+   main.js règle aussi la taille des lettres (toute la hauteur) et l'étirement de chaque ligne (toute la largeur). */
+
+.pg-home .poster {
+  --poster-lh: 0.95;   /* lu aussi par main.js */
+  --poster-pad: 0.08em;
+  position: relative;
+  height: 250svh;      /* un écran de scroll pour l'arrivée des lignes, puis un demi-écran de pause (main.js) */
+  /* Remonte sous l'en-tête, comme le faisait le hero */
+  margin-top: calc(-1 * (var(--header-h) + 12px));
+  background: var(--yellow);
+}
+.pg-home .poster-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  /* En haut, la place de l'en-tête pour qu'il ne cache pas la première ligne */
+  padding: calc(var(--header-h) + 12px + var(--space-2)) var(--gutter) var(--space-2);
+}
+.pg-home .poster-lines {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: var(--f-poster);
+  font-weight: 900;
+  line-height: var(--poster-lh);
+  text-transform: uppercase;
+  color: var(--salmon);
+}
+.pg-home .poster-line {
+  display: flex;
+  justify-content: center;   /* reste centré même quand le texte, avant étirement, déborde */
+  white-space: nowrap;
+  transform: translateX(calc(var(--dir) * 110vw));   /* hors écran tant qu'elle n'est pas arrivée */
+}
+.pg-home .poster.is-playing .is-band {
+  animation: poster-in 1.6s var(--ease-poster) 0.2s both;
+}
+/* Une fois arrivé, le nom ne rejoue pas l'entrée (par exemple au changement de langue) */
+.pg-home .poster.is-done .is-band { animation: none; transform: none; }
+@keyframes poster-in {
+  from { transform: translateX(calc(var(--dir) * 110vw)); }
+  to { transform: none; }
+}
+.pg-home .poster-text,
+.pg-home .poster-row { display: inline-block; }
+.pg-home .poster-fit { transform-origin: center; }
+/* La bande du nom : couleurs inversées, d'un bord à l'autre de l'écran.
+   Ses coins suivent ceux des lettres : en em, ils grandissent avec elles. */
+.pg-home .poster-line.is-band {
+  margin-inline: calc(-1 * var(--gutter));
+  padding-block: var(--poster-pad);
+  border-radius: 0.06em;
+  background: var(--salmon);
+  color: var(--yellow);
+}
+/* La ligne du bas de l'affiche, comme un pied d'affiche : la recherche de stage et deux liens.
+   Visible dès le chargement, elle dit aussi qu'il y a une suite. */
+.pg-home .poster-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem var(--space-3);
+  color: var(--cream);
+  font-weight: 700;
+}
+.pg-home .poster-status p { margin-right: auto; }
+.pg-home .poster-status a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: underline 2px;
+  text-underline-offset: 5px;
+}
+.pg-home .poster-status a::after { content: "↓"; margin-left: 0.4em; transition: transform 0.3s var(--ease-bounce); }
+.pg-home .poster-status a:hover::after { transform: translateY(3px); }
+.pg-home .poster-status :focus-visible { outline-color: var(--cream); }
+@media (max-width: 760px) {
+  .pg-home .poster-status { gap: 0 var(--space-2); font-size: var(--fs-small); }
+  .pg-home .poster-status p { flex-basis: 100%; }
+}
+
+/* Écran en hauteur : chaque ligne passe sur deux rangs pour rester grande */
+@media (orientation: portrait) {
+  .pg-home .poster-row { display: block; width: max-content; margin-inline: auto; }
+  .pg-home .poster-space { display: none; }
 }
 
 /* ---------- Index des projets ---------- */
@@ -610,25 +721,7 @@ h2, h3 { font-family: var(--f-display); font-weight: 400; line-height: 1; letter
 /* La photo ne mord que sur la marge du papier, jamais sur le texte */
 .about-collage { grid-area: 1 / 8 / 2 / 13; justify-self: start; position: relative; z-index: 2; width: min(100%, 440px); margin: 0 0 0 calc(-1 * var(--space-4)); }
 .about-collage .collage-photo { transform: rotate(-2.5deg); }
-.about-collage .note { right: -8%; bottom: -3%; }
 
-/* Flèche dessinée à la main, du texte vers le portrait : le trait se trace quand le bloc arrive */
-.doodle-arrow {
-  position: absolute;
-  z-index: 3;
-  width: 30%;
-  left: -24%;
-  bottom: -2%;
-  overflow: visible;
-  fill: none;
-  stroke: var(--ink);
-  stroke-width: 3.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  pointer-events: none;
-}
-.js .reveal .doodle-arrow path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.3s var(--ease-out) 0.5s; }
-.js .reveal.is-in .doodle-arrow path { stroke-dashoffset: 0; }
 
 .chips { display: flex; flex-wrap: wrap; gap: 0.6rem; }
 .chips li {
@@ -648,7 +741,6 @@ h2, h3 { font-family: var(--f-display); font-weight: 400; line-height: 1; letter
 @media (max-width: 860px) {
   .about-paper { grid-area: 1 / 1 / 2 / 13; }
   .about-collage { grid-area: 2 / 2 / 3 / 12; justify-self: center; width: min(100%, 380px); margin: calc(-1 * var(--space-3)) 0 0; }
-  .doodle-arrow { display: none; }
 }
 
 /* ---------- CV ---------- */
@@ -753,9 +845,8 @@ h2, h3 { font-family: var(--f-display); font-weight: 400; line-height: 1; letter
 }
 .contact-sub { max-width: 44ch; font-size: var(--fs-lead); margin-top: var(--space-4); }
 
-.contact-collage { grid-area: 1 / 8 / 2 / 13; position: relative; z-index: 1; margin: 0; }
+.contact-collage { grid-area: 1 / 8 / 2 / 13; justify-self: center; position: relative; z-index: 1; width: min(100%, 400px); margin: 0; }
 .contact-collage .collage-photo { transform: rotate(-3deg); }
-.contact-collage .note { left: -8%; bottom: 6%; }
 
 @media (max-width: 860px) {
   .contact-text { grid-area: 1 / 1 / 2 / 13; }
@@ -892,45 +983,243 @@ h2, h3 { font-family: var(--f-display); font-weight: 400; line-height: 1; letter
 .curtain.is-covered { transform: none; }
 .curtain.is-leaving { transform: translateX(101%); transition: transform 0.4s var(--ease-in-out); }
 
-/* ---------- Accueil : réglages de la palette « Ciel et cerise » ----------
-   Le ciel est clair : ce qui était crème dessus passe à l'encre. La cerise reste au nom et au rôle,
-   le beurre prend la place de l'ancien jaune là où il porte du texte ou les logos des projets. */
+/* ==========================================================
+   Accueil : la DA de l'affiche du haut.
+   Rubik Black en capitales pour tous les titres, Figtree pour le texte.
+   Les sections alternent cerise et rose, comme la bande du nom ; coins légèrement adoucis, comme ceux de Rubik.
+   Contraste : le rose sur cerise (4,3:1) est réservé aux grands textes ; le petit texte
+   sur cerise est en crème, celui sur rose en encre.
+   ========================================================== */
 
-.pg-home :focus-visible { outline-color: var(--red); }
-.pg-home .on-dark :focus-visible { outline-color: var(--ink); }
-.pg-home .card.aline :focus-visible,
-.pg-home .site-footer :focus-visible { outline-color: var(--mint); }
-.pg-home .card:focus-within { outline-color: var(--red); }
-.pg-home .skip-link { background: var(--mint); }
+body.pg-home { background: var(--rose); }
 
-.pg-home .site-header.is-over-hero { color: var(--ink); }
-.pg-home .is-over-hero .lang-switch { background: rgb(20 33 61 / 0.08); }
-.pg-home .is-over-hero .lang-switch button { color: var(--ink); }
-.pg-home .lang-switch button[aria-pressed="true"],
-.pg-home .is-over-hero .lang-switch button[aria-pressed="true"] { background: var(--red); color: var(--cream); }
-.pg-home .menu a:hover,
-.pg-home .menu-toggle { background: var(--mint); }
+/* Sections cerise : le texte passe en crème, les grands titres en rose */
+.pg-home .is-cerise { background: var(--cerise); color: var(--cream); }
 
-@media (max-width: 760px) {
-  .pg-home .menu { background: var(--red); }
-  .pg-home .menu a:hover, .pg-home .is-over-hero .menu a:hover { background: var(--mint); color: var(--ink); }
-  .pg-home .menu :focus-visible { outline-color: var(--mint); }
+/* --- Titres --- */
+.pg-home h2 {
+  font-family: var(--f-poster);
+  font-weight: 900;
+  line-height: 1;     /* pas moins : la queue du Q toucherait les accents de la ligne suivante */
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: var(--cerise);
+}
+.pg-home .is-cerise h2 { color: var(--rose); }
+
+/* Les titres arrivent de côté, comme les lignes de l'affiche : un titre de la droite, le suivant de la gauche.
+   Tous les mots d'un titre arrivent ensemble. */
+.pg-home h2 { --side: 1; }
+.pg-home .about h2,
+.pg-home .contact h2 { --side: -1; }
+/* Comme l'affiche, l'arrivée suit le scroll : main.js règle le « translate » de chaque mot.
+   Ici, les mots sont simplement posés, sans l'apparition minutée des pages projets. */
+.js .pg-home .words-up .word,
+.js .pg-home .words-up .word:nth-child(even) {
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
 
+/* Étiquettes de section : une petite bande aux couleurs inversées */
+.pg-home .label {
+  padding: 0.35rem 0.7rem 0.3rem;
+  border-radius: var(--round-s);
+  background: var(--cerise);
+  color: var(--cream);
+}
+.pg-home .is-cerise .label { background: var(--cream); color: var(--cerise); }
+.pg-home .work-index-panel .label { background: var(--cerise); color: var(--cream); }
 
-/* Tout l'accueil sur le ciel, du hero au contact */
-body.pg-home { background: var(--blue); }
-.pg-home .hero { color: var(--ink); }
+/* Les listes qui arrivent au scroll : à plat, en alternant les côtés (voir main.js) */
+.pg-home [data-slide-in] { --slide-rot: 0; }
 
-.pg-home .work-index::before { background: var(--mint); }
+/* --- En-tête --- */
+/* Un rectangle aux coins adoucis comme le reste de l'accueil, pas une pilule */
+.pg-home .site-header { border-radius: var(--round-m); }
+.pg-home .menu a,
+.pg-home .menu-toggle,
+.pg-home .lang-switch,
+.pg-home .lang-switch button { border-radius: var(--round-s); }
+/* Cibles tactiles d'au moins 44 px : logo, langues, « Haut de page » */
+.pg-home .logo { display: inline-flex; align-items: center; min-height: 44px; }
+.pg-home .lang-switch button { min-height: 44px; }
+.pg-home .site-footer a { display: inline-flex; align-items: center; min-height: 44px; }
+.pg-home .logo span { color: var(--cerise); }
+.pg-home .lang-switch button[aria-pressed="true"] { background: var(--cerise); color: var(--cream); }
+.pg-home .menu a:hover,
+.pg-home .menu-toggle { background: var(--rose); }
+.pg-home .submenu { border-radius: var(--round-m); }
+.pg-home .submenu a { border-radius: var(--round-s); }
+@media (min-width: 761px) {
+  .pg-home .site-header .site-nav .submenu a:hover { background: var(--rose); }
+}
+.pg-home .skip-link { background: var(--rose); color: var(--ink); }
+.pg-home .progress { --progress-color: var(--ink); }
 
+@media (max-width: 760px) {
+  .pg-home .menu { background: var(--cerise); border-radius: var(--round-m) 0 0 var(--round-m); }
+  .pg-home .menu a { font-family: var(--f-poster); font-weight: 900; text-transform: uppercase; border-radius: var(--round-s); }
+  .pg-home .menu a:hover { background: var(--rose); color: var(--cerise); }
+  .pg-home .menu :focus-visible { outline-color: var(--cream); }
+}
+
+/* --- Focus : toujours visible, de la couleur qui tranche sur le fond --- */
+.pg-home :focus-visible { outline-color: var(--cerise); }
+.pg-home .is-cerise :focus-visible,
+.pg-home .card.aline :focus-visible,
+.pg-home .site-footer :focus-visible { outline-color: var(--cream); }
+.pg-home .work-index-panel :focus-visible { outline-color: var(--ink); }
+.pg-home .card:focus-within { outline-color: var(--cream); }
+.pg-home .card.brol :focus-visible { outline-color: var(--brol-green); }  /* fond bleu clair */
+
+/* --- Manifeste (rose) --- */
+.pg-home .manifesto-text { color: var(--cerise); max-width: 24em; }  /* moins de lignes, plus longues */
+
+/* --- Projets (cerise) --- */
+/* La bande des logos : droite, comme la bande du nom, mais en crème : sur le rose, le U rose de Touffe disparaîtrait.
+   Les logos y gardent leurs couleurs. */
+.pg-home .work-index::before { background: var(--cream); border-radius: var(--round-m) 0 0 var(--round-m); }
+.pg-home .work-index-panel { color: var(--ink); }
+.pg-home .work-index-panel h2 { color: var(--cerise); }
+/* Tout l'index (titre, logos, affiche) tient dans un écran : les tailles suivent aussi la hauteur */
+@media (min-width: 761px) {
+  .pg-home .work-index { padding-block: var(--space-4); }
+  .pg-home .work-index-panel { gap: var(--space-1); }
+  .pg-home .work-index-panel h2 {
+    font-size: clamp(2.2rem, min(4.2vw, 7.5svh), 4.6rem);
+    text-wrap: balance;
+    margin-bottom: var(--space-1);
+  }
+  .pg-home .work-index-list { gap: var(--space-1); }
+  .pg-home .work-index-list strong img { height: clamp(1.8rem, min(3.6vw, 6svh), 3.2rem); }
+  .pg-home .work-index-media { width: min(100%, 380px, 46svh); }
+}
+/* Téléphone : l'affiche au-dessus, la bande crème sous elle, d'un bord à l'autre de l'écran */
+@media (max-width: 760px) {
+  .pg-home .work-index::before { display: none; }
+  .pg-home .work-index-panel {
+    margin-inline: calc(-1 * var(--gutter));
+    padding: var(--space-4) var(--gutter);
+    background: var(--cream);
+  }
+}
+
+/* Les projets se suivent sans se recouvrir, en rectangles aux coins adoucis */
+.pg-home .card,
+.pg-home .card:nth-child(n) { position: relative; top: auto; border-radius: var(--round-m); box-shadow: 0 18px 50px rgb(0 0 0 / 0.3); }
+.pg-home .card-num { font-family: var(--f-poster); font-weight: 900; }
+/* .brol sur le bleu clair de sa charte : le rouge de l'agence se confondait avec la section cerise.
+   Fond clair, donc texte et bouton dans le vert de la charte. */
+.pg-home .card.brol { --card-bg: var(--brol-blue); --card-fg: var(--brol-green); }
+.pg-home .card-tags li,
+.pg-home .card-link,
+.pg-home .card-media img { border-radius: var(--round-s); }
+.pg-home .card.aline .m2 { border-radius: 0; }  /* les écrans détourés n'ont pas de cadre */
+
+/* Les visuels prennent plus de place que le texte, et restent entiers :
+   posés côte à côte, à peine chevauchés, au lieu d'un éventail coupé par le bord de la carte */
+.pg-home .card { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.3fr); align-items: center; }
+.pg-home .card-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  aspect-ratio: auto;
+  padding-block: var(--space-2);
+}
+.pg-home .card-media img,
+.pg-home .card.aline .card-media img {
+  position: relative;
+  inset: auto;
+  flex: 0 1 auto;
+  width: 37%;
+  height: auto;
+  margin-inline: -2.5%;
+}
+.pg-home .card-media .m2 { z-index: 1; }
+.pg-home .card.aline .m1 { width: 36%; }
+.pg-home .card.aline .m2 { width: 68%; margin-left: -8%; }
+@media (max-width: 860px) {
+  .pg-home .card { grid-template-columns: 1fr; }
+  .pg-home .card-media img { width: 44%; margin-inline: -6%; }
+}
+
+/* Téléphone : pas de survol, donc pas d'affiche qui suit le logo ; l'index reste un sommaire */
+@media (max-width: 760px) {
+  .pg-home .work-index-media { display: none; }
+}
+
+/* --- À propos (rose) : le papier en crème --- */
 .pg-home .about { color: var(--ink); }
+.pg-home .about-paper { background: var(--cream); border-radius: var(--round-m); }
+.pg-home .about-paper h2 { color: var(--cerise); }
+.pg-home .about-paper .chips li { border-radius: var(--round-s); }
+.pg-home .collage-photo,
+.pg-home .collage-photo img { border-radius: var(--round-s); }
 
+/* --- CV (cerise) --- */
 .pg-home .skills-grid h3,
-.pg-home .path h3 { color: var(--yellow); }
-.pg-home .skills .chips li { background: var(--cream); color: var(--ink); }
-.pg-home .timeline { border-color: var(--red); }
-.pg-home .timeline::after { border-left-color: var(--red); }
+.pg-home .path h3 { color: var(--cream); }
+.pg-home .big-list li {
+  font-family: var(--f-poster);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--rose);
+  border-bottom-color: rgb(255 253 247 / 0.3);
+}
+.pg-home .plain-list li { border-bottom-color: rgb(255 253 247 / 0.3); }
+.pg-home .skills .chips li { background: var(--cream); color: var(--ink); border-radius: var(--round-s); }
+.pg-home .timeline { border-color: var(--rose); }
+.pg-home .timeline::after { border-left-color: var(--rose); }
+.pg-home .timeline li::before { background: var(--rose); border-radius: 4px; }
+.pg-home .timeline .when { color: var(--cream); }
+.pg-home .timeline .where { opacity: 0.85; }
+.pg-home .cv-button {
+  background: var(--rose);
+  color: var(--cerise);
+  border-radius: var(--round-s);
+  font-family: var(--f-poster);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.pg-home .cv-button small { color: var(--ink); text-transform: none; white-space: nowrap; }
+/* Téléphone : « PDF, 240 Ko » passe sous le titre au lieu d'être coupé à côté */
+.pg-home .cv-button { flex-wrap: wrap; row-gap: 0.2rem; }
+
+/* --- Contact (rose) --- */
+/* Rubik est plus large qu'Emilie Display : un peu plus petit pour que le « ? » ne morde pas sur l'affiche */
+.pg-home .contact h2 { font-size: clamp(3.4rem, 9.5vw, 9rem); line-height: 0.95; }
+.pg-home .email { font-family: var(--f-poster); font-weight: 900; }
+.pg-home .btn,
+.pg-home .linkedin { border-radius: var(--round-s); }
+.pg-home .linkedin:hover { color: var(--rose); }
+
+/* --- CV et contact : chaque section tient dans un écran d'ordinateur ---
+   Les grandes tailles suivent aussi la hauteur de la fenêtre (svh). Sur téléphone, les blocs s'empilent. */
+@media (min-width: 861px) {
+  .pg-home .skills,
+  .pg-home .contact { padding-block: var(--space-4); }
+
+  .pg-home .skills .section-head { gap: var(--space-1); margin-bottom: var(--space-3); }
+  .pg-home .skills .section-head h2 { font-size: clamp(2.2rem, min(5vw, 8svh), 4.6rem); }
+  .pg-home .skills-grid { gap: var(--space-3); }
+  .pg-home .skills-grid h3,
+  .pg-home .path h3 { margin-bottom: var(--space-1); }
+  .pg-home .skills .chips { gap: 0.4rem; }
+  .pg-home .skills .chips li { padding: 0.35rem 0.8rem; font-size: 0.9rem; }
+  .pg-home .plain-list li { padding-block: 0.35rem; }
+  .pg-home .path { margin-top: var(--space-4); }
+  .pg-home .timeline strong { font-size: 1.05rem; }
+  .pg-home .cv-button { margin-top: var(--space-4); padding: 0.8rem 1.4rem 0.65rem; font-size: clamp(1.2rem, 2vw, 1.6rem); }
+
+  .pg-home .contact h2 { margin-top: var(--space-2); font-size: clamp(2.6rem, min(6.5vw, 11svh), 6.5rem); }
+  .pg-home .contact-sub { margin-top: var(--space-3); font-size: 1.1rem; }
+  .pg-home .contact-actions { margin-top: var(--space-3); }
+  .pg-home .email { font-size: clamp(1.4rem, 2.8vw, 2.4rem); }
+  .pg-home .linkedin { margin-top: var(--space-2); }
+  .pg-home .contact-collage { width: min(100%, 360px, 44svh); }
+}
 
 /* ==========================================================
    Pages projet : la structure commune, sans direction artistique.
@@ -1043,4 +1332,12 @@ figcaption { display: block; margin-top: 0.9rem; font-size: var(--fs-small); fon
   .blob { --py: 0px !important; }
   .js .words-up .word, .js [data-words] .word, .js [data-slide-in] > * { opacity: 1 !important; transform: none !important; translate: none !important; rotate: none !important; }
   .js .shot::after, .curtain { display: none; }
+  /* L'affiche est posée d'emblée, sans arrivée ni scroll fixé */
+  .pg-home .poster { height: auto; }
+  .pg-home .poster-stage { position: relative; }
+  .pg-home .poster-line { animation: none !important; transform: none !important; }
+  /* Sans ça, la taille des lettres « transitionne » 0,01 ms (règle ci-dessus) et main.js mesure
+     la ligne avant qu'elle ait sa vraie taille : l'étirement sort énorme. */
+  .pg-home .poster-line,
+  .pg-home .poster-line * { transition: none !important; }
 }
