@@ -222,6 +222,19 @@ h2, h3 { font-family: var(--f-display); font-weight: 400; line-height: 1; letter
 .logo span { color: var(--red); }
 .logo:hover { transform: rotate(-4deg) scale(1.05); }
 
+/* Contenu réservé au téléphone (voir le bloc ≤ 600 px en fin de fichier) */
+.show-phone { display: none; }
+
+/* Zone tactile d'au moins 44 px de haut, sans changer le dessin des liens */
+.logo, .pj-back, .site-footer a, .lang-switch button { position: relative; }
+.logo::after, .pj-back::after, .site-footer a::after, .lang-switch button::after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto;
+  height: max(100%, 44px);
+  translate: 0 -50%;
+}
+
 .site-nav { display: flex; align-items: center; }
 
 .menu { display: flex; gap: 0.25rem; }
@@ -361,7 +374,8 @@ h2, h3 { font-family: var(--f-display); font-weight: 400; line-height: 1; letter
     background: none;
     box-shadow: none;
     opacity: 1;
-    visibility: visible;
+    /* inherit : la liste se cache avec le panneau fermé (sinon ses liens restent atteignables au clavier) */
+    visibility: inherit;
     translate: none;
   }
   .submenu::before { display: none; }
@@ -1021,6 +1035,92 @@ body.pg-home { background: var(--rose); }
   transition: none;
 }
 
+/* Ce que main.js déplace à chaque image de scroll : prévenu d'avance, le navigateur
+   glisse ces éléments au lieu de les redessiner (surtout les grandes lignes de l'affiche). */
+@media (prefers-reduced-motion: no-preference) {
+  .pg-home .poster-line { will-change: transform; }
+  .js .pg-home .words-up .word,
+  .pg-home [data-slide-from],
+  .pg-home [data-slide-in] > * { will-change: translate; }
+}
+
+/* Les mêmes arrivées, jouées par le navigateur en phase avec le scroll (classe posée par main.js
+   quand il sait le faire). Trajets identiques au calcul de main.js, qui reste pour les autres navigateurs.
+   « cover 0 » : le haut du bloc entre par le bas de l'écran. */
+@media (prefers-reduced-motion: no-preference) {
+  /* overflow: hidden ferait de ces blocs leur propre zone de défilement : le navigateur y lirait un scroll
+     immobile au lieu de celui de la page. clip coupe de la même façon, sans ce défaut. */
+  .css-scroll .pg-home .section,
+  .css-scroll .pg-home .manifesto { overflow: clip; }
+  /* Mesuré sur tout l'écran, sans la marge de l'en-tête (scroll-padding) que le navigateur retire sinon */
+  .css-scroll .pg-home .poster,
+  .css-scroll .pg-home h2.words-up,
+  .css-scroll .pg-home [data-slide-in],
+  .css-scroll .pg-home [data-words] { view-timeline-inset: 0px; }
+
+  /* Affiche : les lignes arrivent pendant le premier écran de scroll, l'une après l'autre */
+  .css-scroll .pg-home .poster { view-timeline-name: --poster; view-timeline-axis: block; }
+  .css-scroll .pg-home .poster-line:not(.is-band) {
+    animation: arrive-line linear both;
+    animation-timing-function: cubic-bezier(0.5, 1, 0.89, 1);
+    animation-timeline: --poster;
+    animation-range: contain calc(var(--i) * 10svh) contain calc(var(--i) * 10svh + 60svh);
+  }
+
+  /* Titres et blocs : de hors écran à leur place ; --arrive (main.js) dit sur quelle distance */
+  .css-scroll .pg-home h2.words-up { view-timeline-name: --title; view-timeline-axis: block; }
+  .css-scroll .pg-home h2.words-up .word {
+    animation: arrive-side linear both;
+    animation-timeline: --title;
+    animation-range: cover 0px cover var(--arrive, 70vh);
+  }
+  .css-scroll .pg-home [data-slide-from="left"] { --side: -1; }
+  .css-scroll .pg-home [data-slide-from="right"] { --side: 1; }
+  .css-scroll .pg-home [data-slide-from] {
+    animation: arrive-side linear both;
+    animation-timeline: view(block 0px);
+    animation-range: cover 0px cover var(--arrive, 70vh);
+  }
+
+  /* Index des projets : une ligne de la gauche, la suivante de la droite */
+  .css-scroll .pg-home [data-slide-in] { --span: 60vh; view-timeline-name: --list; view-timeline-axis: block; }
+  .css-scroll .pg-home [data-slide-in] > * {
+    --side: 1;
+    animation: arrive-item linear both;
+    animation-timing-function: cubic-bezier(0.5, 1, 0.89, 1);
+    animation-timeline: --list;
+    animation-range: cover calc(var(--i) * 0.12 * var(--span)) cover calc((var(--i) * 0.12 + 0.4) * var(--span));
+  }
+  .css-scroll .pg-home [data-slide-in="alternate"] > :nth-child(odd) { --side: -1; }
+
+  /* Manifeste : chaque mot passe de pâle à net, tout est allumé quand le haut atteint la moitié de l'écran */
+  .css-scroll .pg-home [data-words] { view-timeline-name: --words; view-timeline-axis: block; }
+  .css-scroll .pg-home [data-words] .word {
+    animation: word-on linear both;
+    animation-timeline: --words;
+    animation-range: cover calc(5vh + 45vh * var(--i) / var(--n)) cover calc(5vh + 45vh * (var(--i) + 1) / var(--n));
+  }
+}
+@media (prefers-reduced-motion: no-preference) and (max-width: 760px) {
+  .css-scroll .pg-home [data-slide-in] { --span: 35vh; }
+}
+@keyframes arrive-line {
+  from { transform: translate3d(calc(var(--dir) * 110vw), 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+@keyframes arrive-side {
+  from { translate: calc(var(--side, 1) * 110vw) 0; }
+  to { translate: 0 0; }
+}
+@keyframes arrive-item {
+  from { opacity: 0; translate: calc(var(--side) * 100%) 0; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes word-on {
+  from { opacity: 0.18; }
+  to { opacity: 1; }
+}
+
 /* Étiquettes de section : une petite bande aux couleurs inversées */
 .pg-home .label {
   padding: 0.35rem 0.7rem 0.3rem;
@@ -1036,7 +1136,8 @@ body.pg-home { background: var(--rose); }
 
 /* --- En-tête --- */
 /* Un rectangle aux coins adoucis comme le reste de l'accueil, pas une pilule */
-.pg-home .site-header { border-radius: var(--round-m); }
+/* Fond plein, sans flou : le flou d'arrière-plan se recalcule à chaque image de scroll */
+.pg-home .site-header { border-radius: var(--round-m); background: var(--cream); backdrop-filter: none; }
 .pg-home .menu a,
 .pg-home .menu-toggle,
 .pg-home .lang-switch,
@@ -1143,11 +1244,18 @@ body.pg-home { background: var(--rose); }
 @media (max-width: 860px) {
   .pg-home .card { grid-template-columns: 1fr; }
   .pg-home .card-media img { width: 44%; margin-inline: -6%; }
+  /* Trois affiches : à 44 %, la troisième dépassait de la carte et était coupée */
+  .pg-home .card:not(.aline) .card-media img { width: 34%; margin-inline: -2%; }
 }
 
 /* Téléphone : pas de survol, donc pas d'affiche qui suit le logo ; l'index reste un sommaire */
 @media (max-width: 760px) {
+  /* Les cartes projets doublaient l'index juste au-dessus : sur téléphone, l'index mène aux pages projets */
+  .pg-home .stack { display: none; }
+  .pg-home .work-index { margin-bottom: 0; }
   .pg-home .work-index-media { display: none; }
+  /* « CONCRÈTEMENT » doit tenir sur une ligne, même à 360 px */
+  .pg-home .work-index-panel h2 { font-size: min(var(--fs-h2), 9vw); }
 }
 
 /* --- À propos (rose) : le papier en crème --- */
@@ -1190,7 +1298,7 @@ body.pg-home { background: var(--rose); }
 /* --- Contact (rose) --- */
 /* Rubik est plus large qu'Emilie Display : un peu plus petit pour que le « ? » ne morde pas sur l'affiche */
 .pg-home .contact h2 { font-size: clamp(3.4rem, 9.5vw, 9rem); line-height: 0.95; }
-.pg-home .email { font-family: var(--f-poster); font-weight: 900; }
+.pg-home .email { font-family: var(--f-poster); font-weight: 900; display: inline-flex; align-items: center; min-height: 44px; }
 .pg-home .btn,
 .pg-home .linkedin { border-radius: var(--round-s); }
 .pg-home .linkedin:hover { color: var(--rose); }
@@ -1340,4 +1448,53 @@ figcaption { display: block; margin-top: 0.9rem; font-size: var(--fs-small); fon
      la ligne avant qu'elle ait sa vraie taille : l'étirement sort énorme. */
   .pg-home .poster-line,
   .pg-home .poster-line * { transition: none !important; }
+}
+
+/* ==========================================================
+   Téléphone (≤ 600 px) : une échelle à part, plus resserrée.
+   Un écran de 360 px n'est pas un petit écran d'ordinateur :
+   moins d'air entre les sections, des textes d'intro plus sobres,
+   et les grands titres gardent seuls le rôle d'effet.
+   ========================================================== */
+@media (max-width: 600px) {
+  :root {
+    --fs-h2: 2.2rem;
+    --fs-h3: 1.6rem;
+    --fs-lead: 1.0625rem;
+    --fs-body: 1rem;
+    --space-3: 1.25rem;
+    --space-4: 2rem;
+    --space-5: 2.75rem;
+    --space-6: 3.5rem;
+    --header-h: 56px;
+    --radius-m: 22px;
+  }
+
+  /* En-tête : plus compact, cibles tactiles conservées */
+  .logo { font-size: 1.35rem; }
+  /* Pastilles visuellement plus fines ; la zone tactile reste à 44 px (::after) */
+  .menu-toggle, .pg-home .menu-toggle { min-height: 36px; padding: 0 0.9rem; font-size: 0.9rem; }
+  .menu-toggle::after { content: ""; position: absolute; inset: 50% 0 auto; height: 44px; translate: 0 -50%; }
+  .lang-switch { padding: 3px; }
+  .lang-switch button, .pg-home .lang-switch button { min-width: 38px; min-height: 30px; font-size: 0.78rem; }
+
+  /* Accueil */
+  .manifesto-text { font-size: 1.3rem; line-height: 1.35; }
+  .card { padding: 1.5rem 1.25rem; gap: var(--space-3); }
+  .about-paper { padding: 1.75rem 1.25rem 2rem; }
+  .about-paper h2 { font-size: 2.6rem; }
+  .about-paper .about-lead { font-size: 1.1rem; }
+  .pg-home .contact h2 { font-size: 2.4rem; }
+  .pg-home .contact-sub { font-size: 1rem; }
+  .pg-home .email { font-size: 1.15rem; }
+  .pg-home .cv-button { font-size: 1.15rem; }
+
+  /* Éléments retirés sur téléphone (illisibles ou redondants à cette taille) */
+  /* !important : une classe utilitaire doit l'emporter sur les règles propres à chaque page */
+  .hide-phone { display: none !important; }
+  .show-phone { display: revert; }
+
+  /* Pages projets : en-tête, accroche, projet suivant */
+  .pj-tagline { font-size: 1.25rem; }
+  .next strong { font-size: 3rem; }
 }

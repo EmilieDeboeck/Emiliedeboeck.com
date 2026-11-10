@@ -92,13 +92,13 @@
         <p data-i18n="pages.aline.charteText"></p>
 
         <!-- Les deux familles de la charte, montrées dans leur propre police -->
-        <div class="al-type" aria-hidden="true">
+        <div class="al-type hide-phone" aria-hidden="true">
           <span class="al-type-display">outfit</span>
           <span class="al-type-body">dm sans</span>
         </div>
 
-        <h3 class="reveal" data-i18n="pages.aline.paletteTitle"></h3>
-        <ul class="swatches">
+        <h3 class="reveal hide-phone" data-i18n="pages.aline.paletteTitle"></h3>
+        <ul class="swatches hide-phone">
           <li style="background: #E8173D; color: #fff;">aline red <code>#E8173D</code></li>
           <li style="background: #F2621D; color: #0D0D0D;">orange <code>#F2621D</code></li>
           <li style="background: #F5E642; color: #0D0D0D;">jaune <code>#F5E642</code></li>
@@ -109,9 +109,16 @@
           <li style="background: #FFFFFF; color: #0D0D0D;">blanc <code>#FFFFFF</code></li>
         </ul>
       </div>
-      <figure class="shot reveal">
+      <figure class="shot reveal hide-phone">
         <img src="../assets/img/aline/charte-900.jpg" srcset="../assets/img/aline/charte-900.jpg 636w, ../assets/img/aline/charte-1800.jpg 1272w, ../assets/img/aline/charte-3600.jpg 2544w" sizes="(min-width: 860px) 45vw, 90vw" width="636" height="900" loading="lazy" alt="" data-i18n-attr="alt:pages.aline.alt.charte">
       </figure>
+      <!-- Sur téléphone : la charte découpée en quatre blocs lisibles -->
+      <div class="al-charte-parts show-phone">
+        <figure class="shot"><img src="../assets/img/aline/charte-couleurs-720.jpg" width="720" height="540" loading="lazy" alt="" data-i18n-attr="alt:pages.aline.alt.charteCouleurs"></figure>
+        <figure class="shot"><img src="../assets/img/aline/charte-typo-720.jpg" width="720" height="618" loading="lazy" alt="" data-i18n-attr="alt:pages.aline.alt.charteTypo"></figure>
+        <figure class="shot"><img src="../assets/img/aline/charte-ton-720.jpg" width="720" height="521" loading="lazy" alt="" data-i18n-attr="alt:pages.aline.alt.charteTon"></figure>
+        <figure class="shot"><img src="../assets/img/aline/charte-composants-720.jpg" width="720" height="597" loading="lazy" alt="" data-i18n-attr="alt:pages.aline.alt.charteComposants"></figure>
+      </div>
     </div>
   </section>
 
@@ -119,8 +126,8 @@
   <section class="pj-section" aria-labelledby="screens-title">
     <div class="wrap">
       <h2 id="screens-title" class="reveal" data-i18n="pages.aline.screensTitle"></h2>
-      <p data-i18n="pages.aline.screensText"></p>
-      <ol class="al-phones">
+      <p class="hide-phone" data-i18n="pages.aline.screensText"></p>
+      <ol class="al-phones hide-phone">
         <li class="reveal">
           <span class="al-phone-step" data-i18n="pages.aline.screens.s1"></span>
           <img src="../assets/img/aline/ecran-decouvrir-600.webp" srcset="../assets/img/aline/ecran-decouvrir-600.webp 600w, ../assets/img/aline/ecran-decouvrir-1200.webp 1200w" sizes="300px" width="600" height="1249" loading="lazy" alt="" data-i18n-attr="alt:pages.aline.alt.ecran1">

@@ -342,3 +342,18 @@
   .sp-desktop:hover .sp-screen,
   .sp-phone:hover .sp-screen { object-position: 50% 0; }
 }
+
+/* Téléphone : les grandes compositions passent à une échelle de poche */
+@media (max-width: 600px) {
+  .pg-touffe .logo { font-size: 1.5rem; }
+  .pg-touffe .pj-section h2 { font-size: 2rem; }
+  .pg-touffe .pj-tagline { font-size: 1.2rem; }
+  .pg-touffe .specimen { font-size: 2rem; }
+  .tester input { min-height: 48px; font-size: 1rem; }
+  .tester output { padding: var(--space-3) var(--space-2); font-size: 2rem; }
+  .pg-touffe .pj-quote { font-size: 1.6rem; }
+  .pg-touffe .stats { gap: var(--space-3); }
+  .pg-touffe .stat strong { font-size: 2.5rem; }
+  .numbered li { padding: 0.75rem 1rem; font-size: 1rem; }
+  .sp-cta { min-height: 48px; padding: 0.6rem 1.2rem 0.5rem; font-size: 1.05rem; }
+}

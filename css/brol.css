@@ -123,6 +123,7 @@
    Sous 1000 px la mise en page change trop pour qu'il garde sa place : on le retire. */
 .br-thread { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 @media (max-width: 1000px) { .br-thread { display: none; } }
+.br-thread-m { display: none; }
 .br-thread path {
   fill: none;
   stroke: var(--br-red);
@@ -190,3 +191,23 @@
   box-shadow: inset 0 0 0 1px var(--br-line);
 }
 .pg-brol .swatches code { display: block; font-family: var(--f-body); color: rgb(17 17 17 / 0.65); }
+
+/* Téléphone : titres et cartes du ton à l'échelle de l'écran */
+@media (max-width: 600px) {
+  .pg-brol .logo { font-size: 1.3rem; }
+  .pg-brol .pj-section h2 { font-size: 1.85rem; }
+  .pg-brol .pj-section h3 { font-size: 1.35rem; }
+  .pg-brol .pj-title { width: 72%; }
+  /* Fil rouge du téléphone, ancré en bas de l'en-tête */
+  .pg-brol .br-thread-m { display: block; inset: auto 0 0; height: 150px; }
+  .pg-brol .br-thread-m path { stroke-dasharray: 700; stroke-dashoffset: 700; }
+  /* Affiches : une seule, plus petite et centrée */
+  .pg-brol .posters { grid-template-columns: 1fr; width: 70%; margin-inline: auto; }
+  /* Palette : trois pastilles par ligne */
+  .pg-brol .swatches { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3) var(--space-2); }
+  .pg-brol .swatches li { font-size: 0.85rem; }
+  .pg-brol .swatches li::before { width: 72%; margin-bottom: 0.5rem; }
+  .pg-brol .swatches code { font-size: 0.75rem; }
+  .pg-brol .traits li { padding: 0.3rem 0.85rem; font-size: 0.9rem; }
+  .pg-brol .brol-voice li { min-height: 0; padding: 1.25rem 1.15rem; font-size: 1.35rem; }
+}

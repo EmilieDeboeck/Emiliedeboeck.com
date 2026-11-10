@@ -62,7 +62,8 @@
 .pg-aline .menu-toggle { background: var(--al-red); color: #FFFFFF; font-family: var(--f-body); }
 
 @media (max-width: 760px) {
-  .pg-aline .site-header { background: var(--al-card); }
+  /* Sans backdrop-filter : sinon le menu fixe reste coincé dans l'en-tête */
+  .pg-aline .site-header { background: var(--al-card); backdrop-filter: none; }
   .pg-aline .menu { background: var(--al-card); border-left: 1px solid var(--al-line); border-radius: 28px 0 0 28px; }
   .pg-aline .menu a { font-family: var(--f-aline); font-weight: 700; letter-spacing: -0.03em; text-transform: lowercase; color: #FFFFFF; }
   .pg-aline .menu a:hover { background: var(--al-red); color: #FFFFFF; }
@@ -258,3 +259,23 @@
   .al-hero-row .al-try-btn { grid-column: 2; grid-row: 2; align-self: center; justify-self: center; padding: 1.3rem 2.8rem; font-size: 1.45rem; }
 }
 .pg-aline .al-try p { max-width: 34rem; color: var(--al-muted); font-size: 0.95rem; }
+
+/* Téléphone : les blocs se resserrent, les cartes du ton suivent leur texte */
+@media (max-width: 600px) {
+  .pg-aline .logo { font-size: 1.3rem; }
+  .pg-aline .pj-section h2 { font-size: 1.9rem; }
+  .pg-aline .pj-tagline { font-size: 1.5rem; }
+  .pg-aline .pj-section.tinted > .wrap { padding: 1.25rem; border-radius: 22px; }
+  .pg-aline .stat strong { font-size: 3.5rem; }
+  .pg-aline .voice li { min-height: 0; padding: 1rem 1.15rem; font-size: 1.2rem; }
+  .al-chips li { padding: 0.25rem 0.8rem; font-size: 0.82rem; }
+  .al-type { padding: 1.1rem; }
+  .al-type-display { font-size: 2.2rem; }
+  .al-type-body { font-size: 1.6rem; }
+  .al-try-btn { padding: 0.8rem 1.6rem; font-size: 1rem; }
+  /* La charte en quatre blocs, l'un sous l'autre */
+  .pg-aline .al-charte-parts { display: grid; gap: 12px; margin-inline: -0.9rem; }
+  .pg-aline .al-charte-parts .shot { border-radius: 18px; overflow: hidden; }
+  /* L'app : plus de captures, le bouton « essayer l'app » suffit */
+  .pg-aline .al-try { margin-top: var(--space-3); }
+}

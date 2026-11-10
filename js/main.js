@@ -118,6 +118,8 @@
         const line = document.createElement("span");
         line.className = i === middle ? "poster-line is-band" : "poster-line";
         line.style.setProperty("--dir", i % 2 ? 1 : -1);
+        // Rang d'arrivée au scroll, le nom mis à part (lu par style.css)
+        if (i !== middle) line.style.setProperty("--i", i < middle ? i : i - 1);
         const text = document.createElement("span");
         text.className = "poster-text";
         parts.forEach((part, j) => {
@@ -292,13 +294,43 @@
   // Même condition que dans le CSS : l'intro n'existe qu'avec cette requête.
   const introQuery = window.matchMedia("(prefers-reduced-motion: no-preference) and (min-height: 560px)");
 
+  // Accueil : si le navigateur sait lier une animation au scroll (Chrome, Edge, Safari récents), c'est lui
+  // qui fait arriver l'affiche, les titres, les blocs et les mots du manifeste (voir style.css), en phase
+  // avec le défilement. Calculées ici en JavaScript, elles auraient toujours une image de retard sur le doigt.
+  // Les autres navigateurs gardent le calcul ci-dessous, avec les mêmes trajets.
+  const cssScroll = page === "home" && window.CSS && CSS.supports("animation-timeline: view()");
+  if (cssScroll) {
+    document.documentElement.classList.add("css-scroll");
+    document.querySelectorAll("[data-slide-in]").forEach((list) => {
+      [...list.children].forEach((item, i) => item.style.setProperty("--i", i));
+    });
+  }
+
+  // Sur téléphone, les sections sont hautes : une arrivée réglée comme sur ordinateur laisserait le titre
+  // ou le texte à moitié hors écran pendant qu'on le lit. Elle se termine donc plus tôt.
+  const narrow = window.matchMedia("(max-width: 760px)");
+  const isPhoneHome = () => page === "home" && narrow.matches;
+
+  // Dans une image de scroll, toutes les mesures d'abord, toutes les écritures ensuite :
+  // alterner les deux forcerait le navigateur à recalculer la page plusieurs fois par image.
+  const writes = [];
+  const flushWrites = () => {
+    writes.forEach((write) => write());
+    writes.length = 0;
+  };
+
+  // N'écrit un style que s'il change : sans ça, chaque image de scroll recalcule tous les mots et toutes les lignes.
+  const setStyle = (el, prop, value) => {
+    if (el.style[prop] !== value) writes.push(() => { el.style[prop] = value; });
+  };
+
   function updateParallax(vh) {
     const mid = vh / 2;
     floaters.forEach((el) => {
       const box = el.parentElement.getBoundingClientRect();
       if (box.bottom < -200 || box.top > vh + 200) return;
       const offset = (box.top + box.height / 2 - mid) * parseFloat(el.dataset.speed);
-      el.style.setProperty("--py", `${offset.toFixed(1)}px`);
+      writes.push(() => el.style.setProperty("--py", `${offset.toFixed(1)}px`));
     });
   }
 
@@ -309,20 +341,17 @@
       const box = intro.getBoundingClientRect();
       p = clamp01(-box.top / (box.height - vh));
       const maxScale = Math.max(vh / 100, window.innerWidth / 200) * 1.05;
-      grow.style.setProperty("--s", (1 + (maxScale - 1) * p).toFixed(3));
-      grow.style.setProperty("--p", p.toFixed(3));
+      writes.push(() => {
+        grow.style.setProperty("--s", (1 + (maxScale - 1) * p).toFixed(3));
+        grow.style.setProperty("--p", p.toFixed(3));
+      });
     }
     // En-tête transparent seulement tout en haut : dès qu'on défile, le hero passe dessous et il redevient une pilule.
     if (hero && page === "home") {
       const overHero = window.scrollY < 24 && hero.getBoundingClientRect().bottom > 80 && p < 0.5;
-      siteHeader.classList.toggle("is-over-hero", overHero);
+      writes.push(() => siteHeader.classList.toggle("is-over-hero", overHero));
     }
   }
-
-  // N'écrit un style que s'il change : sans ça, chaque image de scroll recalcule tous les mots et toutes les lignes.
-  const setStyle = (el, prop, value) => {
-    if (el.style[prop] !== value) el.style[prop] = value;
-  };
 
   // Chaque mot passe de pâle à net pendant que le paragraphe traverse l'écran.
   function updateReading(vh) {
@@ -349,7 +378,7 @@
     document.querySelectorAll("[data-slide-in]").forEach((list) => {
       const box = list.getBoundingClientRect();
       if (box.bottom < 0 || box.top > vh) return;
-      const p = clamp01((vh - box.top) / (vh * 0.6));
+      const p = clamp01((vh - box.top) / (vh * (isPhoneHome() ? 0.35 : 0.6)));
       if (!slideRot.has(list)) slideRot.set(list, parseFloat(getComputedStyle(list).getPropertyValue("--slide-rot") || 6));
       const rot = slideRot.get(list);
       const alternate = list.dataset.slideIn === "alternate";
@@ -364,12 +393,23 @@
   }
 
   // Avancée d'une arrivée liée au scroll : 0 quand le bloc entre par le bas, 1 quand son haut atteint 30 % de l'écran
-  // (la section est alors entièrement visible, le bloc doit être posé).
+  // (la section est alors entièrement visible, le bloc doit être posé) ; 70 % sur téléphone.
   // En bas de page, le bloc ne peut plus monter : l'arrivée se termine alors au plus tard quand le scroll s'arrête.
+  const arrivalEnd = (top, vh) => Math.max(vh * (isPhoneHome() ? 0.7 : 0.3), top - (scrollMax - window.scrollY));
+
   function arrival(box, vh) {
-    const lastTop = box.top - (scrollMax - window.scrollY);
-    const end = Math.max(vh * 0.3, lastTop);
+    const end = arrivalEnd(box.top, vh);
     return end >= vh ? 1 : clamp01((vh - box.top) / (vh - end));
+  }
+
+  // Version CSS : la distance de scroll de chaque arrivée, recalculée seulement quand la page change de taille.
+  function measureArrivals() {
+    if (!cssScroll) return;
+    const vh = window.innerHeight;
+    document.querySelectorAll("h2.words-up, [data-slide-from]").forEach((el) => {
+      const distance = vh - arrivalEnd(el.getBoundingClientRect().top, vh);
+      el.style.setProperty("--arrive", `${Math.max(distance, 1).toFixed(0)}px`);
+    });
   }
 
   // Même arrivée que les lignes de l'affiche : le bloc part hors écran (data-slide-from="left" ou "right")
@@ -484,34 +524,38 @@
 
   // Hauteur défilable gardée en mémoire : la relire à chaque image forcerait un recalcul de la mise en page.
   let scrollMax = 0;
-  const measureScroll = () => { scrollMax = document.documentElement.scrollHeight - window.innerHeight; };
+  const measureScroll = () => {
+    scrollMax = document.documentElement.scrollHeight - window.innerHeight;
+    measureArrivals();
+  };
   measureScroll();
   if ("ResizeObserver" in window) new ResizeObserver(measureScroll).observe(body);
 
   function updateProgress() {
-    progressBar.style.setProperty("--progress", scrollMax > 0 ? clamp01(window.scrollY / scrollMax).toFixed(4) : 0);
+    const progress = scrollMax > 0 ? clamp01(window.scrollY / scrollMax).toFixed(4) : 0;
+    writes.push(() => progressBar.style.setProperty("--progress", progress));
   }
 
   let ticking = false;
-  let gliding = false;
 
   function onScrollFrame() {
     ticking = false;
     const vh = window.innerHeight;
     updateProgress();
     updateIntro(vh);
-    if (reduceMotion.matches) return;
-    updateParallax(vh);
-    updateReading(vh);
-    updateSlideIn(vh);
-    updateSlideFrom(vh);
-    updateTitles(vh);
-    updatePoster(vh);
+    if (!reduceMotion.matches) updateParallax(vh);
+    if (!reduceMotion.matches && !cssScroll) {
+      updateReading(vh);
+      updateSlideIn(vh);
+      updateSlideFrom(vh);
+      updateTitles(vh);
+      updatePoster(vh);
+    }
+    flushWrites();
   }
 
-  // Pendant le glissé, les effets sont déjà recalculés dans l'image du glissé : inutile de le refaire.
   function requestScrollFrame() {
-    if (!ticking && !gliding) {
+    if (!ticking) {
       ticking = true;
       requestAnimationFrame(onScrollFrame);
     }
@@ -524,50 +568,6 @@
     measureScroll();
     requestScrollFrame();
   });
-
-  /* ---------- Défilement glissant à la molette ---------- */
-  // Uniquement souris/trackpad : le clavier, le tactile et les ancres gardent le scroll natif.
-
-  if (!reduceMotion.matches && window.matchMedia("(pointer: fine)").matches) {
-    let target = window.scrollY;
-    let current = target;
-    let last = null;
-
-    // Amorti calé sur le temps écoulé, pas sur le nombre d'images : le même glissé à 60 Hz et à 120 Hz,
-    // et pas de saut quand une image arrive en retard.
-    const glide = (now) => {
-      const dt = last === null ? 1000 / 60 : Math.min(Math.max(now - last, 0), 50);
-      last = now;
-      // Accueil : un glissé plus long, pour que les arrivées liées au scroll se déroulent sans hâte
-      current += (target - current) * (1 - Math.exp(-dt / (page === "home" ? 280 : 150)));
-      if (Math.abs(target - current) < 0.3) {
-        current = target;
-        gliding = false;
-      }
-      window.scrollTo({ top: current, behavior: "instant" });
-      // Les effets suivent dans la même image que le défilement, sans attendre l'événement scroll.
-      onScrollFrame();
-      if (gliding) requestAnimationFrame(glide);
-    };
-
-    window.addEventListener("wheel", (event) => {
-      if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
-      if (event.target.closest("canvas, [data-native-scroll]")) return;
-      event.preventDefault();
-      const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1;
-      if (!gliding) current = window.scrollY;
-      target = Math.min(Math.max((gliding ? target : current) + event.deltaY * unit, 0), scrollMax);
-      if (!gliding) {
-        gliding = true;
-        last = null;
-        requestAnimationFrame(glide);
-      }
-    }, { passive: false });
-
-    window.addEventListener("scroll", () => {
-      if (!gliding) target = window.scrollY;
-    }, { passive: true });
-  }
 
   /* ---------- Ancres : le bloc visé arrive centré entre l'en-tête et le bas de l'écran ---------- */
   // Le bloc, ce sont les éléments [data-center] de la section (leur ensemble, du premier au dernier).
